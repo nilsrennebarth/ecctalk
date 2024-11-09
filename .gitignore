@@ -1,0 +1,11 @@
+# standard extensions
+*.aux
+*.log
+*.toc
+
+# example curves
+ec1-m2-p2.png
+ec2-m2-p1.png
+ec3-p1-p0.png
+ec4-p0-p4.png
+nec-m3-p2.png
