@@ -184,7 +184,17 @@ beides rational, ist also ebenfalls rational.
 
 Damit ist etwas interessantes passiert: Wir haben aus zwei rationalen Punkten
 einen dritten konstruiert: Wir können sogar eine Formel für den dritten Punkt
-angeben: [TODO]
+angeben:
+
+Seien P=(x_p, y_p) und Q=(x_q, y_q), P + Q = R = (x_r, y_r), wobei 
+
+sei s := (y_p - y_q) / (x_p - x_q)
+
+Dann ist:
+
+  x_r = s^2 - x_p - x_q
+  y_r = - y_p + s (x_p - x_r
+
 
 Und es kommt noch besser: Nicht nur dass wir einen dritten Punkt gefunden
 haben, wir haben falls y_3 != 0 sogar noch einen vierten Punkt, nämlich den
@@ -192,7 +202,14 @@ Punkt (x_4, y_4) = (x_3, -y_3) schließlich ist die Kurve in Weierstraß-Normalf
 spiegelsymmetrisch zur x-Achse. Und mit diesem vierten Punkt können wir
 dieselbe Konstruktion fortsetzen: Gerade durch (x_1, y_1) und (x_4, y_4)
 legen, wir erhalten einen dritten Schnittpunkt, (x_5, y_5), spiegeln ihn an
-der x-Achse und erhalten (x_6, y_6), und so weiter. [TODO: Bild]
+der x-Achse und erhalten (x_6, y_6), und so weiter.
+
+Example: Kurve $y^2 = x^3 - x + 1$
+
+Anfangs sind P = (1,1) und Q = (-1, 1) (eigentlich == 2P), dann kommen die
+Punkte nP + Q (0, -1), (3, -5), (5, 11), (1/4, 7/8), (-11/9, 34/54)
+[TODO: Bild]
+
 
 Damit haben wir eine Operation \x, die aus Punkt P = (x_1, y_1) und Q = (x_2,
 y_2) den Punkt P \mult Q = (x_4, y_4) macht. Warum haben wir den Punkt (x_3,
