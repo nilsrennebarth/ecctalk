@@ -241,6 +241,30 @@ heißt, er liege `im Unendlichen`. Wir wollen das aber präzise fassen, und dazu
 machen wir etwas, was auch sonst nützlich ist: Wir treten aus der Ebene heraus
 und sehen uns die Kurve etwas aus der Entfernung an. Zunächst mal geometrisch
 anschaulich gesehen: Wir fassen die Kurve als ein Gebilde auf, das sich eigentlich
-auf einer Kugel befindet, und von einem Projektor der sich im Mittelpunkt der
-Kugel befindet auf eine ebene Leinwand projiziert wird. [TODO Bild]
+auf einer Kugel befindet. In der Mitte der Kugel ist eine punktförmige
+Lichtquelle. Die Leinwand ist eine Ebene oberhalb der Kugel, das auf die
+Leinwand projizierte Bild ist die Kurve, wie wir sie kennen.
 
+Mathematisch heißt das: Wir nehmen statt zwei Koordinaten x und y nun drei: x,
+y, z, sagen aber dafür, dass Punkte, die auf demselben Strahl liegen alle
+äquivalent sind, also (x, y, z) ~ (x', y', z') wenn es eine Konstante \lambda
+aus \R gibt mit (x', y', z') = (\lambda x, \lambda y, \lambda z)
+
+Statt Punkte betrachten wir nun Äquivalenzklassen von Punkten. Die
+Kurvengleichung
+
+$$ y^2 = x^3 + ax + b $$
+
+wird zu:
+
+$$ y^2 z = x^3 + ax z^2 + b z^3 $$
+
+Wenn z != 0 ist, können wir beide Seiten durch z^3 teilen und erhalten:
+
+$$ \frac{y^2}{z^2} = \frac{x^3}{z^3} + a \frac{x}{z} + b $$
+
+das entspricht genau dem Punkt $(\frac{x}{z}, \frac{y}{z}$. Wenn dagegen
+$z = 0$, dann wird die Gleichung zu $0 = x^3$, also muss auch $x = 0$, und da
+mindestens eine der drei Koordinaten != 0 sein muss, muss $y != 0$, und da es
+bis auf einen Faktor egal ist können wir y = 1 wählen, somit ist der Punkt (0,
+1, 0) der Punkt auf der Kurve im `Unendlichen`. image: ell-curve-projective.png
