@@ -9,12 +9,15 @@ class Ecurve(object):
     """
     Elliptic curve for plotting
     """
-    def __init__(self, a=1, b=0, xrange=(-5, 5), yrange=(-5, 5)):
+    def __init__(
+            self, a=1, b=0,
+            xrange=(-5, 5), yrange=(-5, 5), size=10.0
+    ):
         self.a = a
         self.b = b
         self.xrange = xrange
         self.yrange = yrange
-        self.fig, self.axes = plt.subplots(1, figsize=(10.0, 10.0))
+        self.fig, self.axes = plt.subplots(1, figsize=(size, size))
 
     def potential(self, x, y):
         """
@@ -28,6 +31,39 @@ class Ecurve(object):
         """
         y = x**3 + x * self.a + self.b
         return sqrt(y) if y >= 0 else sqrt(-y)
+
+    def plotsum(self, P, Q, R, name=''):
+        """
+        Plot picture showing why R is sum of P and Q
+        """
+        def minus(p):
+            return (p[0], -p[1])
+
+        if P[0] > Q[0]:
+            P, Q = Q, P
+
+        if R[0] < P[0]:
+            mini = minus(R)
+            maxi = Q
+        elif R[0] < Q[0]:
+            mini = P
+            maxi = Q
+        else:
+            mini = P
+            maxi = minus(R)
+
+        plt.plot([P[0], Q[0], R[0]], [P[1], Q[1], R[1]], "ok")
+
+        plt.plot(
+            [mini[0], maxi[0]], [mini[1], maxi[1]],
+            color="c", linewidth=1
+        )
+        plt.text(R[0] - 0.15, R[1] + 0.25, name, fontsize=20)
+        self.axes.arrow(
+            R[0], -R[1], 0, 2 * R[1],
+            head_width=0.1, head_length=0.4, length_includes_head=True,
+            linestyle='dashed', color='y'
+        )
 
     def plotCoord(self):
         """
@@ -79,7 +115,7 @@ class Ecurve(object):
         if self.b != 0:
             title += f" {sig(self.b)} {abs(self.b)}"
         title += "$"
-        plt.title(title, fontsize=20, color='b', pad=40)
+        plt.title(title, fontsize=24, color='b', pad=40)
 
     def plotAll(self, outname):
         self.plotCoord()

@@ -10,6 +10,10 @@ ECEXAMPLES := \
 
 $(ECEXAMPLES): ecurve.py
 
+EPOINTS = ec5-m1-p1-points.png
+
+ALLIMG := $(ECEXAMPLES) $(EPOINTS)
+
 ec1-m2-p2.png:
 	python3 ecurve.py a=-2 b=2 xrange=-2,4 yrange=-4,4 $@
 
@@ -25,11 +29,14 @@ ec4-p0-p4.png:
 nec-m3-p2.png:
 	python3 ecurve.py a=-3 b=2 xrange=-4,4 yrange=-4,4 $@
 
-images: $(ECEXAMPLES)
+ec5-m1-p1-points.png: epoints.py ecurve.py
+	python3 epoints.py
 
 
+
+images: $(ALLIMG)
 
 clean:
-	rm -f $(ECEXAMPLES)
+	rm -f $(ALLIMG)
 
 .PHONY: all images clean
