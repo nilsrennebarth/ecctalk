@@ -280,3 +280,81 @@ $z = 0$, dann wird die Gleichung zu $0 = x^3$, also muss auch $x = 0$, und da
 mindestens eine der drei Koordinaten != 0 sein muss, muss $y != 0$, und da es
 bis auf einen Faktor egal ist können wir y = 1 wählen, somit ist der Punkt (0,
 1, 0) der Punkt auf der Kurve im `Unendlichen`. image: ell-curve-projective.png
+
+EC Diffie-Hellman
+=================
+
+Haben jetzt elliptische Kurve über endlichem Körper \F_p. Um was für
+Zahlen handelt es sich denn da praktisch? Primzahl mit etwa 255
+binären Stellen, das sind etwa 76 Dezimalstellen.
+
+Wie geht das?
+
+Erste Anmerkung: Diffie-Hellman ist kein Verschlüsselungsverfahren,
+und auch kein Signaturverfahren, sondern es erlaubt es zwei Leuten
+Alice und Bob über einen öffentlichen Kanal mit Lauscher E sich auf
+ein gemeinsames Geheimnis zu einigen, das E nicht herausbekommen kann.
+
+Eine Möglichkeit, so ein gemeinsames Geheimnis zu nutzen wäre zum
+Beispiel es als Key für ein konventionellles symmetrisches
+Verschlüsselungsverfahen zu nutzen (AES).
+
+Zurück zu EC-Diffie-Hellmann:
+
+Vorher haben A und B eine elliptische Kurve E zusammen mit einem
+endlichen Körper K festgelegt, und zusätzlich noch einen Punkt P. P
+ist dabei so gewählt, dass die Sequenz P, P+P, P+P+P ... `lange`
+braucht um sich zu wiederholen. Diese Informationen sind öffentlich
+und insbesondere auch E bekannt.
+
+Alice wählt nun ihr Geheims n_a, eine lange Dezimalzahl. Sie berechnet
+daraus P + ... + P, n_a - mal.
+
+(Aufmerksame Leute werden sich fragen wie das mit so großen Zahlen
+gehen soll. Antwort: Es gibt da so Tricks)
+
+Dann übermittelt Alice das Ergebnis P_a - ein Punkt auf der Kurve - an
+Bob.
+
+Bob macht auf seiner Seite währenddessen dasselbe, er wählt sein
+eigenes Geheimnis n_b, und berechnet P + ... + P, n_b mal. Dann
+übermittelt er das Ergebnis P_b an Alice.
+
+[TODO: Image, A -> B, over arrow is P_a = P + ...^{n-times} + P ]
+
+Nun kennt Alice n_a und P_b, Bob dagegen kennt n_b und P_a.
+
+Alice berechnet nun P_b + ... + P_b (n_a mal) und erhält S (ein
+Punkt auf der Kurve).
+
+Bob berechnet P_a + ... + P_a (n_b mal) und erhält S'
+
+Aber nun ist
+
+       S = P_b + ... + P_b =
+           (P + ...^n_b + P) + ...^n_a + (P + ... +P)
+         = P + ...^ n_a n_b P =
+	 = P + ...^ n_b n_a P =
+	 = P + ...^n_a P + ...^n_b
+	 = P_a + ...^n_b + P_a =
+	 = S'
+
+Damit sind S und S' derselbe Punkt und somit ein gemeinsames
+Geheimnis. Eve dagegen kennt nur P_a und P_b, bekommt damit aber weder
+n_a noch n_b heraus. (Außer sie hat einen funktionierenden
+Quantencomputer, aber das ist eine andere Geschichte).
+
+Was hatten wir:
+
+- Ein paar Kurven so in Fisch oder Knubbelform
+- Eine geometrische Operation \oplus darauf, die aus zwei Punkten einen
+  dritten macht
+- Ein Ausflug in die dritte Dimension, der zu den Kurven einen
+  schwurbelfreien Punkt im Unendlichen hinzufügt. Nun ist \oplus eine
+  Addition
+- Ein Ausflug in endliche Körper, danach kann ein Computer mit den
+  Kurven rechnen, und zwar ohne zu ungenau zu werden oder zuviel
+  Speicher zu brauchen.
+- Eine Methode wie man sich mit diesen Punkten auf der Kurve auf ein
+  gemeinsames Geheimnis einigt das kein anderer kennt.
+
