@@ -173,7 +173,11 @@ der Kurve. Dann können wir eine Gerade durch diese legen und bekommen häufig
 einen dritten Schnittpunkt.
 
 Bemerkung 1: Wir bekommen auf keinen Fall einen vierten Schnittpunkt, das
-liegt daran, dass wir uns auf Kurve vom Grad 3 beschränkt haben.
+liegt daran, dass wir uns auf Kurve vom Grad 3 beschränkt haben. Warum
+können Polynome vom Grad n höchstens n Nullstellen besitzen?
+Antwort: Polynomdivision, spalte bei Nullstelle x_0 (x - x_0) ab, dass
+geht genau wenn x_0 Nullstelle. Bei n Nullstellen komplett zerlegt,
+weitere Nullstelle->Widerspruch.
 
 Der Beweise dafür nutzt die Tatsache dass alle x-Werte der Schnittpunkte einer
 Geraden mit der Kurve eine Gleichung dritten Gerades erfüllen, und man für
