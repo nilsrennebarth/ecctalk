@@ -153,6 +153,18 @@ Vorerst mal bleiben wir bei rationalen Zahlen.
   damit befassten Punkte auf elliptischen Kurven zu finden, bei denen beide
   Koordinaten rational sind.
 
+- Fun fact negative Zahlen: Diophant kannte bereits negative Zahlen,
+  und wusste wie man mit ihnen rechnen musste, hat sie aber nur als
+  Hilfsgrößen die bei Zwischenrechnungen auftreten betrachtet und
+  nicht als Lösungen von Gleichungen akzeptiert. Bis
+  ins 18. Jahrhundert waren Mathematikern negative Zahlen
+  suspekt. Zitat Francis Maseres, 1758: "[negative numbers] darken the
+  very whole doctrines of the equations and make dark of things which
+  are in their nature excessively obvious and simple.
+  Erst im 19. Jahrhundert durch Mathematike wie Hamilton und Gauß
+  etablierten sich negative Zahlen wie wir sie heute kennen.
+
+
 Nehmen wir einfach mal an, wir haben eine elliptische Kurve, gegeben in der
 Weierstraßschen Normalform und mit rationalen
 Koeffizenten. Nehmen wir weiter an, wir kennen schon zwei Punkte (x_1, y_1)
