@@ -26,8 +26,9 @@ Ergebnis liegt.
 
 Beispiele: In 1) Gerade durch zwei Punkte, nimm zwei beliebige Repräsentanten,
 zeichne eine Gerade durch beide, fasse alle Punkte auf der Geraden als
-Repräsentanten auf, diese Menge von Klassen ist im projektiven Raum die Gerade
-durch zwei Punkte.
+Repräsentanten auf, Die Gesamtmenge der Punkte ist dann eine Ebene, und die
+ist unabhängig von der Wahl der Repräsentaten. Diese Menge von Klassen ist im
+projektiven Raum die Gerade durch zwei Punkte.
 
 In 2) nimm zwei beliebige Repräsentanten, bilde die Summe, definiere das
 Ergebnis als die Summe der Äquivalenzklassen. Dasselbe mit dem Produkt:
@@ -128,7 +129,17 @@ Es reicht Kurven der Form:
 
 
 zu betrachten. Dies wird die `Weierstraßsche Normalform` genannt.
-Zusatzbedingung [TODO] um solche Sachen auszuschließen
+
+Footnote:
+Stimmt für die reellen Zahlen, die wir gerade betrachten. Nur für Körper mit
+Charakteristik 2 oder 3 muss man etwas mehr Koeffizienten auf der rechten
+Seite hinzunehmen.
+
+Zusatzbedingung:
+
+$$ \Delta_E = -4a^3 - 27b^2 $$
+
+um solche Sachen auszuschließen:
 (Bild mit sich selbst schneidender Kurve).
 
 Der aufmerksame Zuhörerin wird sich fragen, warum die Koeffizenten der
@@ -174,11 +185,13 @@ einen dritten Schnittpunkt.
 
 Bemerkung 1: Wir bekommen auf keinen Fall einen vierten Schnittpunkt, das
 liegt daran, dass wir uns auf Kurve vom Grad 3 beschränkt haben. Warum
-können Polynome vom Grad n höchstens n Nullstellen besitzen?
+können Polynome vom Grad n höchstens n Nullstellen besitzen? Übungsaufgabe:
+
+Tip: Polynomdivision, Nullstelle ist linearer Teiler.
+
 Antwort: Polynomdivision, spalte bei Nullstelle x_0 (x - x_0) ab, dass
 geht genau wenn x_0 Nullstelle. Bei n Nullstellen komplett zerlegt,
 weitere Nullstelle->Widerspruch.
-
 Der Beweise dafür nutzt die Tatsache dass alle x-Werte der Schnittpunkte einer
 Geraden mit der Kurve eine Gleichung dritten Gerades erfüllen, und man für
 jede Lösung x_0 einen Linearfaktor aus der Gleichung herausziehen kann.
@@ -224,7 +237,10 @@ Example: Kurve $y^2 = x^3 - x + 1$
 
 Anfangs sind P = (1,1) und Q = (-1, 1) (eigentlich == 2P), dann kommen die
 Punkte nP + Q (0, -1), (3, -5), (5, 11), (1/4, 7/8), (-11/9, 34/54)
-[TODO: Bild]
+
+Image ec5-m1-p1-points.png [TODO: Start with P,Q, add line and 3rd
+intersection, then arrow to sum. Now add R to the box and remove the line and
+the arrow. Repeat until end, Finally make an animated png from it.]
 
 
 Damit haben wir eine Operation \x, die aus Punkt P = (x_1, y_1) und Q = (x_2,
@@ -285,6 +301,103 @@ mindestens eine der drei Koordinaten != 0 sein muss, muss $y != 0$, und da es
 bis auf einen Faktor egal ist können wir y = 1 wählen, somit ist der Punkt (0,
 1, 0) der Punkt auf der Kurve im `Unendlichen`. image: ell-curve-projective.png
 
+Was haben wir bis jetzt?
+
+- Eine Kurve, genauer eine Menge von Punkten (x, y), die Gleichung in
+  Weierstraß-Form erfüllen.
+- Eine Operation \oplus auf der Kurve, also eine Formel, die aus zwei Punkten
+  P_1 = (x_1, y_1), und P_2 = (x_2, y_2) einen dritten Punkt
+  P_3 = (x_3, y_3) = P_1 \oplus P_2 macht.
+
+
+Endliche Körper
+===============
+
+Jetzt möchten wir aber konkrete Berechnungen vornehmen und zwar auf Computern,
+die nicht beliebig genau rechnen können. Am besten wäre, wenn wir auf
+endlichen Mengen rechnen könnten, da gibt es mit der Genauigkeit keine
+Probleme. Wenn wir uns unsere bisherigen Formeln ansehen, stellen wir fest,
+das wir eigentlich nur Addition, Subtraktion, Multiplikation und Division
+verwendet haben, und davon ausgegangen sind, dass die üblichen Rechengesetze
+gelten. Eine solches Objekt nennen Mathematiker `Körper` (engl. `field`).
+
+Na toll, sowas gibt es doch gar nicht! Oder ...? Doch, die gibt es, und sie
+sind allen fast schon aus der Grundschule bekannt, wo jeder schon mal Division
+mit Rest gemacht hat. Wir setzen eine beliebige Zahl N fest, und teilen dann
+alle ganzen Zahlen in Äquivalenzklassen ein: zwei ganze Zahlen a und b gelten
+als äquivalent, wenn sie beim Teilen durch N denselben Rest ergeben. Oder
+anders gesagt: wenn $ (a - b) = m N$ 
+
+Offenbar gibt es dann nur endlich viele Äquivalenzklassen, denn wir können die
+Zahlen 0..N-1 als Repräsentanten nehmen. Man kann sich leicht überlegen, dass
+Addition, Subtraktion und Multiplikation einfach durch die normale Operation
+auf den Repräsentanten durchgeführt werden können, und wohldefiniert sind. Nur
+bei der Division gibt es ein Problem: Wenn N sich zerlegen lässt:
+$N = n_1 \dot n_2$ und weder n_1 noch n_2 sind 1 oder N, dann hätten wir
+$n_1 n_2 = 0$ 
+
+N darf sich also nicht zerlegen lassen, mit anderen Worten, N muss eine
+Primzahl sein. Und für diese funktionert es auch tatsächlich. Wir legen also
+eine Primzahl p fest, und rechnen einfach normal mit den Zahlen 0..p-1, und
+sobald wir aus dem Bereich 0..p-1 herauskommen reduzieren wir wieder wieder,
+indem wir mit Rest durch p teilen. Nur: wie geht die Division?
+
+Nehmen wir ein Beispiel: p=37, und wir wollen $9 \div 10$ berechnen, oder
+anders gesagt, wird suchen die Zahl x, so dass x * 10 = 9 (mod 37). 
+Es würde schon ausreichen eine Zahl x zu finden mit x * 10 = 1 (mod 37), denn
+dann können wir x einfach mit 9 multiplizieren (und ggf. mod 37 reduzieren),
+oder noch mal anders formuliert: Wir suchen eine Zahl r, so dass es eine ganze
+Zahl s gibt mit r * 10 = s * 37 + 1 bzw. 1 = 10 r - 37 s
+
+Wir teilen dazu unser festgelegte Primzahl 37 mit Rest durch die Zahl deren
+Inverses wir berechnen wollen, also 10:
+
+  $$ 37 = 3 * 10 + 7     7 = 37 - 3 * 10 $$
+
+Der bleibende Rest ist 7. Nun dasselbe Verfahren mit 10 und 7:
+
+  $$ 10 = 1 * 7 + 3     3 = 10 - 1 * 7 $$
+
+7 mit Rest durch 3:
+
+  $$ 7 = 2 * 3 + 1    1 = 7 - 2 * 3 $$
+
+Wir sehen: die Zahlen werden immer kleiner, in der Tat kann man beweisen
+(Übungsaufgabe) dass sie sich bei jedem Schritt in etwa halbieren. (Stimmt
+auch nicht ganz: wir müssem um effizienter zu werden mit Resten im Bereich
+[-(p-1)/2 .. (p-1)/2] rechnen.) Irgenwann kommen wir mal zu einer Division die
+Rest 1 liefert.
+
+In der letzten Zeile sehen wir die 1 als Summe von Produkten von 7 und 3.
+Mit der vorletzten Zeile können wir die 3 als Summe von Produkten von 7 und 10
+schreiben, damit bekommen wir die 1 als Summe von Produkten von 7 und 10.
+Die 7 wiederum können wir mit der obersten Zeile als Summe von Produkten aus
+37 und 10 ausdrücken und erhalten so am Schluss 1 als Summe von Produkten 10
+und 37:
+
+$$ 1 = 1 * 7 - 2 * 3 = 1 * 7 - 2 * (10 - 1 * 7) =
+     = 3 * 7 - 2 * 10 = 3 * (37 - 3 * 10) - 2 * 10 =
+     = 3 * 37 - 11 * 10 $$
+
+Jetzt haben wir noch ein kleines Vorzeichenproblem schließlich wollten wir
+(s.o.) bei der 10 einen positiven Faktor. Das haben wir aber gleich:
+
+          3 * 37 - 11 * 10 = (-1)(11 * 10 - 3 * 37) =
+       = -11 * 10 + 3 * 37 =
+       = (26 - 37) * 10 + 3 * 37 =
+       = 26 * 10 - 7 * 37
+
+Und erhalten damit 26 als Inverses von 10 (mod 37). (Wir hätten auch gleich
+sehen können, dass das Inverse von 10 (mod 37) -11 ist, und das ist dasselbe
+wie 26 (mod 37).
+
+[TODO: Beispiel von Punkten einer elliptischen `Kurve` über \F_{37}]
+
+Praktisch werden in standardisierten Verfahren im Wesentlichen vier Kurven
+benutzt, jeweils mit verschiedenen endlichen Köpern. Die Primzahlen haben
+dabei 76, 117 und 156 Dezimalstellen.
+
+
 EC Diffie-Hellman
 =================
 
@@ -315,7 +428,8 @@ Alice wählt nun ihr Geheims n_a, eine lange Dezimalzahl. Sie berechnet
 daraus P + ... + P, n_a - mal.
 
 (Aufmerksame Leute werden sich fragen wie das mit so großen Zahlen
-gehen soll. Antwort: Es gibt da so Tricks)
+gehen soll. Antwort: Wiederholtes Verdoppeln und Addieren statt immer wieder
+eins drauf zu addieren)
 
 Dann übermittelt Alice das Ergebnis P_a - ein Punkt auf der Kurve - an
 Bob.
