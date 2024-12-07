@@ -53,6 +53,7 @@ class Ecurve(object):
             maxi = minus(R)
 
         plt.plot([P[0], Q[0], R[0]], [P[1], Q[1], R[1]], "ok")
+        plt.plot(R[0], -R[1], "xk")
 
         plt.plot(
             [mini[0], maxi[0]], [mini[1], maxi[1]],
