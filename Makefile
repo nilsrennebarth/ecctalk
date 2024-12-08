@@ -31,6 +31,8 @@ nec-m3-p2.png:
 
 ec5-m1-p1-points.png: epoints.py ecurve.py
 	python3 epoints.py
+finplot.png: fincurve.py
+	python3 fincurve.py
 
 
 
