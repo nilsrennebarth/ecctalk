@@ -222,7 +222,7 @@ sei s := (y_p - y_q) / (x_p - x_q)
 Dann ist:
 
   x_r = s^2 - x_p - x_q
-  y_r = - y_p + s (x_p - x_r
+  y_r = - y_p + s (x_p - x_r)
 
 
 Und es kommt noch besser: Nicht nur dass wir einen dritten Punkt gefunden
@@ -382,30 +382,38 @@ $$ 1 = 1 * 7 - 2 * 3 = 1 * 7 - 2 * (10 - 1 * 7) =
 Jetzt haben wir noch ein kleines Vorzeichenproblem schließlich wollten wir
 (s.o.) bei der 10 einen positiven Faktor. Das haben wir aber gleich:
 
-          3 * 37 - 11 * 10 = (-1)(11 * 10 - 3 * 37) =
-       = -11 * 10 + 3 * 37 =
+
+         -11 * 10 + 3 * 37 =
        = (26 - 37) * 10 + 3 * 37 =
        = 26 * 10 - 7 * 37
 
-Und erhalten damit 26 als Inverses von 10 (mod 37). (Wir hätten auch gleich
-sehen können, dass das Inverse von 10 (mod 37) -11 ist, und das ist dasselbe
-wie 26 (mod 37).
+Und erhalten damit 26 als Inverses von 10 (mod 37).
 
-[TODO: Beispiel von Punkten einer elliptischen `Kurve` über \F_{37}]
+Über endlichen Körpern sehen unsere elliptischen Kurven nun wenig intuitiv
+aus. Beispiel: [finplot.png]
 
 Praktisch werden in standardisierten Verfahren im Wesentlichen vier Kurven
 benutzt, jeweils mit verschiedenen endlichen Köpern. Die Primzahlen haben
 dabei 76, 117 und 156 Dezimalstellen.
 
+Funktioniert der Übergang zu endlichen Körpern nun überhaupt? Will heißen:
+Gibt es überhaupt genügend Punkte auf diesen Kurven? Die Antwort hat Helmut
+Hasse (* 25.8.1898  + 26.12.1979) 1933 gegeben:
+
+Satz (Hasse-Schranke): Sei E eine elliptische Kurve über \F_q Sein N die
+Anzahl der Punkte auf E. Dann ist
+
+$$ \| N - q - 1 \| \le 2 \sqrt{q} $$
+
+Die Anzahl von Punkten überhaupt ist $2q + 1$, da \F_q q Elemente hat (Das + 1
+ist für den Punkt im Unendlichen).
+Für große q (und solche interessieren uns ja für die Kryptographie) ist die
+Wurzel im Vergleich zu q eher klein, und damit besagt der Satz, das etwa die
+Hälfte der Punkte des gesamten Raumes auf der Kurve liegt.
 
 EC Diffie-Hellman
 =================
 
-Haben jetzt elliptische Kurve über endlichem Körper \F_p. Um was für
-Zahlen handelt es sich denn da praktisch? Primzahl mit etwa 255
-binären Stellen, das sind etwa 76 Dezimalstellen.
-
-Wie geht das?
 
 Erste Anmerkung: Diffie-Hellman ist kein Verschlüsselungsverfahren,
 und auch kein Signaturverfahren, sondern es erlaubt es zwei Leuten
@@ -421,7 +429,10 @@ Zurück zu EC-Diffie-Hellmann:
 Vorher haben A und B eine elliptische Kurve E zusammen mit einem
 endlichen Körper K festgelegt, und zusätzlich noch einen Punkt P. P
 ist dabei so gewählt, dass die Sequenz P, P+P, P+P+P ... `lange`
-braucht um sich zu wiederholen. Diese Informationen sind öffentlich
+braucht um sich zu wiederholen. (Anmerkung: Wir wollen zusätzlich, dass die
+Anzahl der Additionen bis sich das Ergebnis wiederholt eine Primzahl ist.) Mit
+lang meinen wir eine Zahl die in etwa so viele Stellen wie die Primzahl
+unseres endlichen Körpers. Diese Informationen sind öffentlich
 und insbesondere auch E bekannt.
 
 Alice wählt nun ihr Geheims n_a, eine lange Dezimalzahl. Sie berechnet
