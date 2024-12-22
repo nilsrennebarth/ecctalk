@@ -84,27 +84,26 @@ Verlauf des Vortrages:
 
 [Nachsehen: Wer waren Diffie und Hellman? -> Fußnote]
 
-Vorweg: Was haben die mit (mathematischen) Ellipsen zu tun?
-
-Das braucht zuviel Mathematik, und führt zu weit vom Thema aber für
-die, die es wissen wollen:
-
-Die Berechnung der Bogenlänge einer Ellipse
-
-[Bild Ellipse mit Teil des Bogens]
-
-ergibt Integrale die sich nicht in geschlossener Form lösen
-lassen. Die Umkehrfunktionen davon nennt man elliptische Funktionen.
-Die kann man ins Komplexe fortsetzen und mit denen erhält man eine
-1-1 Abbildung einer elliptischen Kurve über den komplexen Zahlen auf
-ein Parallelogramm in der komplexen Ebene. Also eher die entferntere
-Verwandschaft...
-
-
 Erst mal ein paar prototypische Beispiele. Genauer gesagt sind dies
 elliptische Kurven in der affinen rellen Ebene. Drei Beispiele mit Formeln und
-Bild dazu, einmal durchgehend mit Beule, einmal fischartig, einmal als zwei
-getrennte Teile.
+Bild dazu, einmal fischartig, einmal Insel und Hügel, einmal nur Hügel und
+einmal Hügel mit Hochebene, am Schluss sich selbst kreuzende Kurve (keine
+elliptische Kurve)
+
+Was haben die mit (mathematischen) Ellipsen zu tun?
+
+- Die Berechnung der Bogenlänge einer Ellipse, genauer: Das Problem aus dem
+  Winkel die Länge des Bogens bis dorthin zu berechnen, führt auf Integrale
+  die sich nicht in geschlossener Form lösen lassen. Besonders frustrierend,
+  da das ganze beim Kreis so gut funktioniert, und die Verallgemeinerung von
+  Kreis auf Ellipse bei der Flächenberechnung kein Problem darstellt.
+- Die Umkehrfunktion davon kann man in die komplexen Zahlen hinein
+  fortsetzen. Nennt man elliptische Funktionen.
+- Mit so einer Funktion und ihrer Ableitung kann man eine 1-1 Abbildung
+  von den Punkten einer elliptischen Kurve auf ein Parallelogramm der
+  komplexen Ebene konstruieren.
+- ... also eher entfernte Verwandschaft.
+
 
 Allgemeine Form: Polynom in x,y vom Grad 3. Heißt:
 
@@ -125,22 +124,24 @@ viel Mathematik) zeigen:
 
 Es reicht Kurven der Form:
 
-  $$ y^2 = x^3 + ax + b     (2) $$
+  $$ y^2 = x^3 + ax + b     (2)
 
 
-zu betrachten. Dies wird die `Weierstraßsche Normalform` genannt.
+zu betrachten, wobei:
+
+  $$ \Delta_E = -4a^3 - 27b^2 != 0 $$
+
+Dies wird die `Weierstraßsche Normalform` genannt.
+
+Die letzte Bedingung brauchen wir, um solche Sachen auszuschließen, die wir im
+letzten Beispiel gesehen haben.
 
 Footnote:
+
 Stimmt für die reellen Zahlen, die wir gerade betrachten. Nur für Körper mit
 Charakteristik 2 oder 3 muss man etwas mehr Koeffizienten auf der rechten
 Seite hinzunehmen.
 
-Zusatzbedingung:
-
-$$ \Delta_E = -4a^3 - 27b^2 $$
-
-um solche Sachen auszuschließen:
-(Bild mit sich selbst schneidender Kurve).
 
 Der aufmerksame Zuhörerin wird sich fragen, warum die Koeffizenten der
 Beispiele eigentlich alles ganze Zahlen sind, wenn hier doch ständig von

@@ -4,39 +4,36 @@
 \usepackage{german}
 \usepackage{amsmath}
 \usetheme{Hannover}
-\title{Mathematik elliptischer Kurven}
+\title{Elliptische Kurven: Was ist das?}
+\subtitle{Und wie macht man damit Kryptographie?}
 \author{Nils Rennebarth}
 \date{November 2024}
 \newcommand{\Proj}{\mathbb{P}}
 \begin{document}
 
+% ----------------------
 \begin{frame}
   \titlepage
 \end{frame}
-
-\section*{Inhalt}
-\begin{frame}
-  \tableofcontents
-\end{frame}
-
-\section{Geometrie}
+\section{Einführung}
+% ----------------------
 \begin{frame}
 
   \frametitle{Was sind elliptische Kurven}
-
-  \begin{definition}
-    Eine elliptische Kurve $E$ über einem Körper $K$ ist eine glatte Kubik im
-    projektiven Raum $\Proj^2(K)$ mit mindestens einem Punkt aus $K$.
-  \end{definition}
-
-  \pause
-
-  Beispiele:
-
-  \includesvg{ECClines-3}
+  \framesubtitle<1-4>{Beispiel}
+  \framesubtitle<5>{Dies ist \emph{keine} elliptische Kurve}
+  \begin{figure}
+  \includegraphics<1>[height=0.7\textwidth]{ec1-m2-p2.png}
+  \includegraphics<2>[height=0.7\textwidth]{ec2-m2-p1.png}
+  \includegraphics<3>[height=0.7\textwidth]{ec3-p1-p0.png}
+  \includegraphics<4>[height=0.7\textwidth]{ec4-p0-p4.png}
+  \includegraphics<5>[height=0.7\textwidth]{nec-m3-p2.png}
+  \end{figure}
 
 \end{frame}
 
+
+% ----------------------
 \begin{frame}
   \frametitle{Was haben die mit Ellipsen zu tun?}
   \begin{itemize}
@@ -52,95 +49,37 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Wie bekommt man die Gleichung?}
-  \begin{itemize}
-  \item Wir beginnen mit einem allgemeinen Polynom in zwei Variablen vom
-    Grad 3:
-    $$ a_0 y^2 + a_1 xy + a_2 y = a_5 x^3 + a_3 x^2 + a_4 x + a_6 $$
-  \item Mit $y \to a_0 a_5^2 y $ und $x \to a_0 a_5 x $ wird das zu
-    $$ a_0^3 a_5^4 y^2 + \dots = a_0^3 a_5^4 x^3 + \dots $$
-  \item Beide Seiten durch $a_0^3 a_5^4$ teilen gibt:
-    $$ y^2 + a_1 xy + a_2 y = x^3 + a_3 x^2 + a_4 x + a_6 $$
-  \item Mit $y \to y - (a_1 x + a_3)/2$ erhalten wir:
-    $$ y^2 = x^3 + a_2 x^2 + a_3 x + a_6 $$
-  \end{itemize}
+  \frametitle{Normalform}
+  Allgemeine Kubik:
+
+  \begin{equation*}
+    a y^3 + b y^2 x + c y x^2 + d x^3 + e y^2 + f x y + g x^2 +
+    h x + i y + j = 0
+  \end{equation*}
+
+  Es reicht jedoch, Kurven der folgenden Form zu betrachten:
+
+  \begin{definition}[Weißerstraß Normalform]
+    Die Normalform einer elliptischen Kurve E über einem Körper K
+    ist:
+
+    \begin{equation}
+      y^2 = x^3 + ax + b
+    \end{equation}
+
+    mit a und b aus K, wobei:
+    \begin{equation}
+      \Delta_E = -4a^3 - 27b^2 \ne 0
+    \end{equation}
+  \end{definition}
+
 \end{frame}
-
-\begin{frame}
-  \frametitle{Weierstraß Normalform}
-  \begin{itemize}
-  \item Nun noch $x \to x - a_2 / 3$ dann bekommen wir
-    \begin{eqnarray*}
-      x^3 & - & 3x^2 a_2/3 + 3x a_2^2 / 9 + a_2^3 / 27 \\
-          & + & a_2 (x^2 - 2 x a_2 / 3 + a_2^2 / 9) + \dots \\
-      = x^3 & + & x^2 (-a_2 + a_2) + x (\dots) + \dots
-    \end{eqnarray*}
-  \item Und damit auf die bekannte Weierstraß Normalform:
-    $$ y^2 = x^3 - a x + b $$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Addition von Punkten 1}
-
-  \begin{columns}[T]
-    \begin{column}{5cm}
-      Kurvengleichung:
-      
-      $$ y^2 = x^3 + a x + b $$
-
-      $P = (x_1, y_1)$ und $Q = (x_2, y_2) $
-      Geradengleichung:
-      $$ \frac{y - y_1}{x - x_1} = \frac{y_2 - y_1}{x_2 - x_1} =: d $$
-
-      Einsetzen in Kurve gibt Gleichung 3. Grades. Aber wir kennen
-      ja schon zwei Lösungen: $x_1$ und $x_2$.
-      
-    \end{column}
-    \begin{column}{5cm}
-      \includesvg{add-normal}
-    \end{column}
-  \end{columns}
-
-%      Kann man nach y auflösen und in die Kurvengleichung einsetzen. Das gibt
-%      eine Gleichung dritten Grades in $x$. Aber wir kennen ja schon zwei
-%      Lösungen: $x_1$ und $x_2$. Nun gilt allgemein:
-\end{frame}
-\begin{frame}
-  \frametitle{Addition von Punkten 2}
-  Allgemein gilt für Gleichung 3. Grades mit Lösungen
-  $\lambda_1, \lambda_2, \lambda_3$
-  \begin{multline*}
-    (x - \lambda_1) (x - \lambda_2 ) (x - \lambda_3) = \\
-    \shoveleft{\quad x^3 - (\lambda_1 + \lambda_2 + \lambda_3) x^2
-    + (\lambda_1 \lambda_2 + \lambda_1 \lambda_3 +
-      \lambda_2 \lambda_3) x - \lambda_1 \lambda_2 \lambda_3}
-  \end{multline*}
-
-  Setzen wir in die Kurvengleichung
-  $$ 0 = x^3 + ax + b - y^2 $$
-  $$y = x d + y_1 - x_1 d$$
-  ein und betrachten nur den Koeffizienten von $x^2$, dann ist dieser
-  gleich $-d^2$, also ist
-  \begin{align*}
-    - d^2  & = - (x_1 + x_2 + x_3) \\
-    \intertext{und damit:}
-    x_3    & = d^2 - x_1 - x_2 \\
-    y_3    & = x_3 d + y_1 - x_1 d
-  \end{align*}
-\end{frame}
-
+\section{Addition von Punkten}
 \section{Projektive Ebene}
-
-
 \section{Endliche Körper}
-
-
-\section{Edwards Kurven}
-
-\subsection{Ed25519}
-
+\section{Diffie-Hellmann Schlüsselaustausch}
 \begin{frame}
-  
+  \tableofcontents
 \end{frame}
+
 \end{document}

@@ -1,4 +1,4 @@
-all: images
+all: images ellpress.pdf
 
 # Elliptic curves examples
 ECEXAMPLES := \
@@ -34,11 +34,22 @@ ec5-m1-p1-points.png: epoints.py ecurve.py
 finplot.png: fincurve.py
 	python3 fincurve.py
 
+ellpress.pdf: ellpress.tex $(ALLIMG)
+	lualatex ellpress
+
+ELLPRESSGEN := \
+	ellpress.aux \
+	ellpress.log \
+	ellpress.nav \
+	ellpress.out \
+	ellpress.pdf \
+	ellpress.snm \
+	ellpress.toc
 
 
 images: $(ALLIMG)
 
 clean:
-	rm -f $(ALLIMG)
+	rm -f $(ALLIMG) $(ELLPRESSGEN)
 
 .PHONY: all images clean
