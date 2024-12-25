@@ -260,9 +260,16 @@ Koordinatenpaare (x, y):
 
   (P \x Q) \x R = P \x (Q \x R)   (2)
 
-Das ist den Eigenschaften der Addition schon sehr ähnlich, es fehlen eigentlich
-nur noch folgende:
+Das ist den Eigenschaften der Addition schon sehr ähnlich, es bleiben nur zwei
+Probleme:
 
+- Was tun wenn wir einen Punkt mit $y_p = 0$ zu sich selbst addieren wollen?
+- Was wenn wir zwei Punkte mit derselben x- aber unterschiedlichen y-Werten
+  addieren wollen.
+
+Damit eng zusammen hängt die folgende Eigenschaft, die wir für die Addition
+gerne hätten, damit sie mehr wie eine normal Addition wirkt. (Mathematisch:
+wir wollen, dass die Punkte unter der Addition eine Gruppe bilden).
 Es gibt einen Punkt O mit der Eigenschaft:
 
   P \x O = P

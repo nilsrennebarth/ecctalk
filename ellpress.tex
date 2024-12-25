@@ -65,6 +65,7 @@
 
     \begin{equation}
       y^2 = x^3 + ax + b
+      \label{eq:weier}
     \end{equation}
 
     mit a und b aus $\mathbb{R}$, wobei:
@@ -92,12 +93,14 @@
 \begin{frame}
   \frametitle{Addition von Punkten, arithmetisch}
   \begin{theorem}[Additionsformel]
-    Seien $P = (x_p, y_p)$ und $Q=(x_q, y_q)$ zwei Punkte auf der Kurve mit
-    $x_p \ne x_q$. Sei weiterhin:
+    Seien $P = (x_p, y_p)$ und $Q=(x_q, y_q)$ zwei Punkte auf der elliptischen
+    Kurve $E$. Sei weiterhin:
     \begin{equation*}
-      s = \frac{y_p - y_q}{x_p - x_q}
+      s = \frac{y_p - y_q}{x_p - x_q} \text{ falls } x_p \ne x_q \text{, }
+      s = \frac{3x_p^2 + a}{2y_p} \text{ falls } x_p = x_q, y_p \ne 0
     \end{equation*}
-    Dann gilt für den Punkt $R = P + Q = (x_r, y_r)$:
+    mit $a$ aus (\ref{eq:weier}).
+    Dann gilt für den Punkt $R = P \oplus Q = (x_r, y_r)$:
     \begin{equation}
       \begin{split}
         x_r & = s^2 - x_p - x_q \\
@@ -105,6 +108,18 @@
       \end{split}
     \end{equation}
   \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additionsgesetze}
+  Seien $P$ und $Q$ und $R$ Punkte auf einer elliptischen Kurve, sei $\oplus$
+  die Addition von Punkten, dann gilt:
+  \begin{equation}
+    P \oplus Q = Q \oplus P
+  \end{equation}
+  \begin{equation}
+    (P \oplus Q) \oplus R = P \oplus (Q \oplus R)
+  \end{equation}
 \end{frame}
 
 \section{Projektive Ebene}
