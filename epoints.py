@@ -29,7 +29,7 @@ def main():
         "\n".join(f"${n} = {v}$" for n, v in zip(Names, Values)),
         fontsize=20, va='top', bbox=dict(boxstyle='round', facecolor='wheat')
     )
-    plt.savefig('ec5-m1-p1-points.png', bbox_inches='tight')
+    plt.savefig('ec6-m1-p1-points.png', bbox_inches='tight')
     plt.close(E.fig)
 
 

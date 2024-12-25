@@ -53,7 +53,7 @@ gerade so interessant:
    Es gibt also in den Zahlen mod 13 eine `Wurzel aus -1`
 
 Aber Vorsicht: Wir müssen darauf achten, dass das Endergebnis `wohldefiniert`
-ist: Wenn man zwei andere Repräsentanten nimmt mus dasselbe herauskommen,
+ist: Wenn man zwei andere Repräsentanten nimmt, muss dasselbe herauskommen,
 wobei dasselbe heißt: die beiden verschiedenen Ergebnisse liegen in derselben
 Klasse. Bei Multiplikation und Addition funktioniert das. Beim Wurzelziehen
 beispielsweise geht es schief:
@@ -105,7 +105,9 @@ Was haben die mit (mathematischen) Ellipsen zu tun?
 - ... also eher entfernte Verwandschaft.
 
 
-Allgemeine Form: Polynom in x,y vom Grad 3. Heißt:
+Kurven von Grad 2 sind alle bekannt und vollständig beschrieben
+(Kegelschnitte). Das nächstkompliziertere wären Kurven vom Grad 3.
+Allgemeine Form: Polynom in x,y vom Grad 3, also:
 
 $$ a y^3 + b y^2 x + c y x^2 + d x^3 + e y^2 + f x y + g x^2 + $$
 $$ + h x + i y + j = 0   (1) $$
@@ -173,7 +175,7 @@ Vorerst mal bleiben wir bei rationalen Zahlen.
   suspekt. Zitat Francis Maseres, 1758: "[negative numbers] darken the
   very whole doctrines of the equations and make dark of things which
   are in their nature excessively obvious and simple.
-  Erst im 19. Jahrhundert durch Mathematike wie Hamilton und Gauß
+  Erst im 19. Jahrhundert durch Mathematiker wie Hamilton und Gauß
   etablierten sich negative Zahlen wie wir sie heute kennen.
 
 

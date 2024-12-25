@@ -10,7 +10,7 @@ ECEXAMPLES := \
 
 $(ECEXAMPLES): ecurve.py
 
-EPOINTS = ec5-m1-p1-points.png
+EPOINTS = ec5-m1-p1-add.png ec6-m1-p1-points.png
 
 ALLIMG := $(ECEXAMPLES) $(EPOINTS)
 
@@ -29,7 +29,10 @@ ec4-p0-p4.png:
 nec-m3-p2.png:
 	python3 ecurve.py a=-3 b=2 xrange=-4,4 yrange=-4,4 $@
 
-ec5-m1-p1-points.png: epoints.py ecurve.py
+ec5-m1-p1-add.png: ecadd.py ecurve.py
+	python3 ecadd.py
+
+ec6-m1-p1-points.png: epoints.py ecurve.py
 	python3 epoints.py
 finplot.png: fincurve.py
 	python3 fincurve.py
