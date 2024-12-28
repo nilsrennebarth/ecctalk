@@ -102,7 +102,7 @@
     mit $a$ aus (\ref{eq:weier}).
     Dann gilt für den Punkt $R = P \oplus Q = (x_r, y_r)$:
     \begin{equation}
-      \begin{split}
+      \begin{split}  \label{ec:add}
         x_r & = s^2 - x_p - x_q \\
         y_r & = -y_p + s(x_p - x_r)
       \end{split}
@@ -123,6 +123,70 @@
 \end{frame}
 
 \section{Projektive Ebene}
+\begin{frame}
+  \frametitle{Projektive Ebene, arithmetisch}
+  \begin{eqnarray*}
+    (x,y) \in \mathbb{R}^2
+    & \Rightarrow & (x, y, z) \in \mathbb{R}^3 - \{(0,0,0)\} \\
+    y^2 = x^3 + ax + b
+    & \Rightarrow & y^2z = x^3 + axz^2 + bz^3 \\
+    (x_1, y_1, z_1) &\equiv &(x_2, y_2, z_2) \text{ wenn } \\
+    \exists \lambda \in \mathbb{R}:
+    (\lambda x_1, \lambda y_1, \lambda z_1) & = & (x_2, y_2, z_2)
+  \end{eqnarray*}
+  \begin{eqnarray*}
+     & & (x_1, y_1, z_1) \in E \\
+     & \Rightarrow &
+    y_1^2 z_1 = x_1^3 + a x_1 z_1^2 + b z_1^3 \\
+    & \Rightarrow &
+    \lambda^3 y_1^2 z_1
+    = \lambda^3 x_1^3 + \lambda^3 a x_1 z_1^2 + \lambda^3 b z_1^3 \\
+    & \Rightarrow &
+    (\lambda y_1)^2 \lambda z_1 = (\lambda x_1)^3
+    + a \lambda x_1 (\lambda z_1)^2 + b (\lambda z_1)^3 \\
+    & \Rightarrow &
+    (y_2)^2 z_2 = (x_2)^3
+    + a x_2 (z_2)^2 + b (z_2)^3 \\
+    & \Rightarrow & (x_2, y_2, z_2) \in E
+  \end{eqnarray*}
+\end{frame}
+\begin{frame}
+  \frametitle{Projektive Ebene, arithmetisch}
+  \framesubtitle<1>{Normale Punkte}
+  \framesubtitle<2>{Unendlich ferner Punkt}
+  Sei $(x, y, z) \in E$, also $y^2z = x^3 + axz^2 + bz^3$.
+  \begin{itemize}
+  \item<1-> Wenn $z \ne 0$ dann nehme äquivalenten
+    Punkt $(x', y', 1)$ und es gilt:
+  \begin{equation*}
+    {y'}^2 = {x'}^3 + ax' + b
+  \end{equation*}
+  \item<2> Wenn $z = 0$, dann muss $0 = x^3$ und $(0, 1, 0)$ ist der einzige
+    Punkt auf der Kurve.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Projektive Ebene, geometrisch}
+  \begin{figure}
+    \includegraphics[height=0.57\textwidth]{ell-curve-projective.png}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{zusätzliche Additionsregeln}
+  \begin{definition}
+    Seien $P = (x_p, y_p)$ und $Q =(x_q, y_q)$ zwei verschiedene Punkte auf der
+    elliptischen Kurve $E$ mit $x_p = x_q$ (dann muss $y_q = -y_p$),
+    oder sei $P = Q$ und $y_p = 0$.
+    Sei $\mathcal{O}$ der Punkt im Unendlichen. Wir definieren:
+
+    $$ P \oplus Q = R = \mathcal{O} $$
+  \end{definition}
+  \begin{Theorem}
+    Mit dieser Erweiterung von (\ref{ec:add}) für die Addition von Punkten einer
+    elliptischen Kurve $E$ wird $(E, \oplus)$ zu einer \bf{Gruppe}.
+  \end{Theorem}
+\end{frame}
+
 \section{Endliche Körper}
 \section{Diffie-Hellmann Schlüsselaustausch}
 \begin{frame}

@@ -281,35 +281,64 @@ für alle P, und für alle P gibt es einen Punkt P', so dass:
 Dieser neutrale Punkt ist der von dem es bei vielen Beschreibungen einfach
 heißt, er liege `im Unendlichen`. Wir wollen das aber präzise fassen, und dazu
 machen wir etwas, was auch sonst nützlich ist: Wir treten aus der Ebene heraus
-und sehen uns die Kurve etwas aus der Entfernung an. Zunächst mal geometrisch
-anschaulich gesehen: Wir fassen die Kurve als ein Gebilde auf, das sich eigentlich
-auf einer Kugel befindet. In der Mitte der Kugel ist eine punktförmige
-Lichtquelle. Die Leinwand ist eine Ebene oberhalb der Kugel, das auf die
-Leinwand projizierte Bild ist die Kurve, wie wir sie kennen.
+und sehen uns die Kurve etwas aus der Entfernung an.
 
-Mathematisch heißt das: Wir nehmen statt zwei Koordinaten x und y nun drei: x,
-y, z, sagen aber dafür, dass Punkte, die auf demselben Strahl liegen alle
-äquivalent sind, also (x, y, z) ~ (x', y', z') wenn es eine Konstante \lambda
-aus \R gibt mit (x', y', z') = (\lambda x, \lambda y, \lambda z)
+Diesmal beginnen wir mit der arithmetischen Formulierung, da diese im
+Vergleich zur geometrischen Betrachtung etwas einfacher zu beschreiben ist:
 
-Statt Punkte betrachten wir nun Äquivalenzklassen von Punkten. Die
-Kurvengleichung
+Wir nehmen zu den Kurvenkoordinaten x und y im zweidimensionalen Raum die
+Koordinate z im dreidimensionalen Raum dazu allerdings mit der
+Zusatzbedingung, dass nicht alle drei Werte gleichzeitig Null sein dürfen.
+Warum? Kommt später, wenn wir die geometrische Sichtweise ansehen. Erstmal
+einfach so hinnehmen.
 
-$$ y^2 = x^3 + ax + b $$
+Die Gleichung der elliptischen Kurve wird nun homogenisiert: Es wird an jeden
+Summand eine Potenz von $z$ dranmultipliziert, so dass die Summe der
+Exponenten überall drei wird. Die Zahlen $a$ und $b$ gelten weiterhin als
+Konstanten, werden also bei der Summe der Exponenten nicht mitgezählt.
 
-wird zu:
+Damit haben wir jetzt natürlich viel mehr Lösungen als vorher, das machen wir
+(fast, und das ist der eigentliche Trick dabei) wieder rückgängig, indem wir
+zwei verschiedene Lösungen als äquivalent betrachten, wenn sie sich nur durch
+einen konstanten Faktor unterscheiden.
 
-$$ y^2 z = x^3 + ax z^2 + b z^3 $$
+Das macht natürlich nur Sinn, wenn sich die Eigenschaft `liegt auf der Kurve`
+bei zueinander äquivalenten Punkten nicht ändert, und in der Tat gilt::
 
-Wenn z != 0 ist, können wir beide Seiten durch z^3 teilen und erhalten:
+    & & (x_1, y_1, z_1) \in E \\
+    & \Rightarrow &
+    y_1^2 z_1 = x_1^3 + a x_1 z_1^2 + b z_1^3 \\
+    & \Rightarrow &
+    \lambda^3 y_1^2 z_1
+    = \lambda^3 x_1^3 + \lambda^3 a x_1 z_1^2 + \lambda^3 b z_1^3 \\
+    & \Rightarrow &
+    (\lambda y_1)^2 \lambda z_1 = (\lambda x_1)^3
+    + a \lambda x_1 (\lambda z_1)^2 + b (\lambda z_1)^3 \\
+    & \Rightarrow &
+    (y_2)^2 z_2 = (x_2)^3
+    + a x_2 (z_2)^2 + b (z_2)^3 \\
+    & \Rightarrow & (x_2, y_2, z_2) \in E
 
-$$ \frac{y^2}{z^2} = \frac{x^3}{z^3} + a \frac{x}{z} + b $$
 
-das entspricht genau dem Punkt $(\frac{x}{z}, \frac{y}{z}$. Wenn dagegen
-$z = 0$, dann wird die Gleichung zu $0 = x^3$, also muss auch $x = 0$, und da
-mindestens eine der drei Koordinaten != 0 sein muss, muss $y != 0$, und da es
-bis auf einen Faktor egal ist können wir y = 1 wählen, somit ist der Punkt (0,
-1, 0) der Punkt auf der Kurve im `Unendlichen`. image: ell-curve-projective.png
+Was haben wir geometrisch gesehen gemacht? Wir haben einen Punkt in der Ebene
+durch eine Gerade durch den Nullpunkt ersetzt (Hier kommt die Bedingung dass
+mindestens eine Koordinate $!= 0$ sein muss ins Spiel, sonst bekommt man aus
+einem Punkt nicht eindeutig eine Gerade durch den Nullpunkt).
+Eine Gerade wird zu einer Ebene
+durch den Ursprung. Unsere Kurve wird zu einem Bündel von Geraden, die sich
+wie ein Vorhang bauscht.
+
+Ein klein wenig einfacher wird das, wenn wir unsere Sicht auf eine Kugel vom
+Radius 1 um den Nullpunkt beschränken. Unsere Kurve ist dann tatsächlich eine
+Kurve auf der Kugel, nur dass jeweils zwei Antipoden als einziger Punkt
+aufgefasst werden müssen. Wenn man nun eine Lichtquelle in den Nullpunkt
+stellt, und in die Ebene $z = 1$ eine Leinwand stellt, wird unsere
+ursprüngliche ebene Kurve genau die Projektion auf die Leinwand, daher der
+Name "projektive Ebene".
+
+Für die Addition (s.o.) fehlten uns noch die Fälle $x_p = x_q$ bzw. $P=Q$ und
+$y=0$. Die können wir nun festlegen.
+
 
 Was haben wir bis jetzt?
 
@@ -319,6 +348,10 @@ Was haben wir bis jetzt?
   P_1 = (x_1, y_1), und P_2 = (x_2, y_2) einen dritten Punkt
   P_3 = (x_3, y_3) = P_1 \oplus P_2 macht.
 
+Achtung: Diese Addition von Punkten hat mit der aus der Schule bekannten
+Addition von zweidimensionalen Vektoren in der Ebene nichts zu tun,
+insbesondere ist ganz offensichtlich
+$(x_1, y_1) \oplus (x_2, y_2) \ne (x_1 + x_2, y_1 + y_2)$
 
 Endliche Körper
 ===============
