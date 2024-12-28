@@ -179,7 +179,7 @@
     oder sei $P = Q$ und $y_p = 0$.
     Sei $\mathcal{O}$ der Punkt im Unendlichen. Wir definieren:
 
-    $$ P \oplus Q = R = \mathcal{O} $$
+    $$ P \oplus Q = \mathcal{O} $$
   \end{definition}
   \begin{Theorem}
     Mit dieser Erweiterung von (\ref{ec:add}) für die Addition von Punkten einer
@@ -188,6 +188,27 @@
 \end{frame}
 
 \section{Endliche Körper}
+\begin{frame}
+  \frametitle{Äquivalenzklassen mod N}
+  \begin{definition}
+    Sei $N \in \mathbb{N}, N > 1$. Zwei ganze Zahlen $a$ und $b$ heißen
+    \emph{äquivalent mod N} wenn
+    $$ a \equiv b (mod\ N): \exists m \in \mathbb{Z}: a-b = mN $$
+  \end{definition}
+
+  \begin{lemma}
+    Sei $N \in \mathbb{N}, N > 1$, seien $a_1, a_2, b_1, b_2 \in \mathbb{Z}$,
+    mit $a_1 \equiv a_2 (mod\ N)$ und $b_1 \equiv b_2$  dann gilt:
+    \begin{equation}
+      \begin{split}
+        \label{op:mod}
+        a_1 + b_1 & \equiv  a_2 + b_2 \ (mod\ N) \\
+        a_1 \cdot b_1 & \equiv  a_2 \cdot b_2 \ (mod\ N)
+      \end{split}
+    \end{equation}
+  \end{lemma}
+\end{frame}
+
 \section{Diffie-Hellmann Schlüsselaustausch}
 \begin{frame}
   \tableofcontents

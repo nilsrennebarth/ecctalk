@@ -337,7 +337,9 @@ ursprüngliche ebene Kurve genau die Projektion auf die Leinwand, daher der
 Name "projektive Ebene".
 
 Für die Addition (s.o.) fehlten uns noch die Fälle $x_p = x_q$ bzw. $P=Q$ und
-$y=0$. Die können wir nun festlegen.
+$y=0$. Die können wir nun festlegen. Zur praktischen Berechnung spielt der
+Punkt im Unendlichen also keine wirkliche Rolle, er ist einfach ein weiterer
+Spezialfall der Regeln.
 
 
 Was haben wir bis jetzt?
@@ -374,13 +376,17 @@ anders gesagt: wenn $ (a - b) = m N$
 Offenbar gibt es dann nur endlich viele Äquivalenzklassen, denn wir können die
 Zahlen 0..N-1 als Repräsentanten nehmen. Man kann sich leicht überlegen, dass
 Addition, Subtraktion und Multiplikation einfach durch die normale Operation
-auf den Repräsentanten durchgeführt werden können, und wohldefiniert sind. Nur
-bei der Division gibt es ein Problem: Wenn N sich zerlegen lässt:
+auf den Repräsentanten durchgeführt werden können, und wohldefiniert sind.
+(das ist der Inhalt des Lemmas).
+
+Nur bei der Division gibt es ein Problem: Wenn N sich zerlegen lässt:
 $N = n_1 \dot n_2$ und weder n_1 noch n_2 sind 1 oder N, dann hätten wir
-$n_1 n_2 = 0$ 
+$n_1 n_2 = 0$.
 
 N darf sich also nicht zerlegen lassen, mit anderen Worten, N muss eine
-Primzahl sein. Und für diese funktionert es auch tatsächlich. Wir legen also
+Primzahl sein.
+
+Und für diese funktionert es auch tatsächlich. Wir legen also
 eine Primzahl p fest, und rechnen einfach normal mit den Zahlen 0..p-1, und
 sobald wir aus dem Bereich 0..p-1 herauskommen reduzieren wir wieder wieder,
 indem wir mit Rest durch p teilen. Nur: wie geht die Division?
