@@ -358,113 +358,153 @@ $(x_1, y_1) \oplus (x_2, y_2) \ne (x_1 + x_2, y_1 + y_2)$
 Endliche Körper
 ===============
 
+
 Jetzt möchten wir aber konkrete Berechnungen vornehmen und zwar auf Computern,
-die nicht beliebig genau rechnen können. Am besten wäre, wenn wir auf
-endlichen Mengen rechnen könnten, da gibt es mit der Genauigkeit keine
-Probleme. Wenn wir uns unsere bisherigen Formeln ansehen, stellen wir fest,
-das wir eigentlich nur Addition, Subtraktion, Multiplikation und Division
-verwendet haben, und davon ausgegangen sind, dass die üblichen Rechengesetze
-gelten. Eine solches Objekt nennen Mathematiker `Körper` (engl. `field`).
+die nicht beliebig genau rechnen können. Zunächst stellen wir fest, das sowohl
+bei der Definition elliptischer Kurven als auch bei den Formeln für die
+Addition nur die normalen Grundrechenarten Addition, Subtraktion,
+Multiplikation und Division eingegangen sind, sowie die bekannten
+Rechenregeln. So etwas nennen Mathematiker einen `Körper` (engl. `field`), und
+definieren das noch etwas genauer, aber die Definition wäre in diesem Rahmen
+etwas zu technisch.
 
-Na toll, sowas gibt es doch gar nicht! Oder ...? Doch, die gibt es, und sie
-sind allen fast schon aus der Grundschule bekannt, wo jeder schon mal Division
-mit Rest gemacht hat. Wir setzen eine beliebige Zahl N fest, und teilen dann
-alle ganzen Zahlen in Äquivalenzklassen ein: zwei ganze Zahlen a und b gelten
-als äquivalent, wenn sie beim Teilen durch N denselben Rest ergeben. Oder
-anders gesagt: wenn $ (a - b) = m N$ 
+Bekannte Beispiele für Körper wären die Menge der reellen
+Zahlen $\R$, die Menge der rationalen Zahlen $\Q$ oder die Menger der
+komplexen Zahlen.
 
-Offenbar gibt es dann nur endlich viele Äquivalenzklassen, denn wir können die
-Zahlen 0..N-1 als Repräsentanten nehmen. Man kann sich leicht überlegen, dass
-Addition, Subtraktion und Multiplikation einfach durch die normale Operation
-auf den Repräsentanten durchgeführt werden können, und wohldefiniert sind.
-(das ist der Inhalt des Lemmas).
+Eine Folgerung aus der genauen Definiton benötigen wir aber im Folgenden, das
+ist eine weitere `bekannte` Rechenregel:
 
-Nur bei der Division gibt es ein Problem: Wenn N sich zerlegen lässt:
-$N = n_1 \dot n_2$ und weder n_1 noch n_2 sind 1 oder N, dann hätten wir
-$n_1 n_2 = 0$.
+Sei K ein Körper, seien a, b \in K mit a != 0, b != 0, dann gilt: a * b != 0.
 
-N darf sich also nicht zerlegen lassen, mit anderen Worten, N muss eine
-Primzahl sein.
+Gibt es noch andere Körper, insbesondere welche, in denen wir ohne
+Genauigkeitsverlust rechnen können? Ja, die gibt es, es handelt sich um die
+`endlichen` Körper.
 
-Und für diese funktionert es auch tatsächlich. Wir legen also
-eine Primzahl p fest, und rechnen einfach normal mit den Zahlen 0..p-1, und
-sobald wir aus dem Bereich 0..p-1 herauskommen reduzieren wir wieder wieder,
-indem wir mit Rest durch p teilen. Nur: wie geht die Division?
+Die wichtigste Zutat für diese ist bereits aus der Grundschule bekannt: Die
+Division mit Rest. Dazu legen wir eine ganze Zahl $N$ fest und sagen dann,
+von einer beliebigen Zahl a interessiert uns eigentlich nur der Rest beim
+Teilen durch $N$. Anders, und mathematisch etwas präziser ausgedrückt: Wir
+teilen die gesamte Menge der ganzen Zahlen \Z in $N$ Klassen ein: Alle Zahlen
+die beim Teilen durch $N$ denselben Rest ergeben, sind in einer Klasse.
 
-Nehmen wir ein Beispiel: p=37, und wir wollen $9 \div 10$ berechnen, oder
-anders gesagt, wird suchen die Zahl x, so dass x * 10 = 9 (mod 37). 
-Es würde schon ausreichen eine Zahl x zu finden mit x * 10 = 1 (mod 37), denn
-dann können wir x einfach mit 9 multiplizieren (und ggf. mod 37 reduzieren),
-oder noch mal anders formuliert: Wir suchen eine Zahl r, so dass es eine ganze
-Zahl s gibt mit r * 10 = s * 37 + 1 bzw. 1 = 10 r - 37 s
+Wir definieren dann die Addition bzw. Multiplikation zweier Klassen, indem wir
+aus den beiden Klassen jeweils irgendwelche Zahlen wählen, diese addieren
+bzw. multiplizieren, und die Klasse als Ergebnis nehmen, in der die Summe
+bzw. das Produkt liegt.
 
-Wir teilen dazu unser festgelegte Primzahl 37 mit Rest durch die Zahl deren
-Inverses wir berechnen wollen, also 10:
+Aber halt: "Irgendwelche"? Dann kommt doch beim Addieren bzw. Multiplizieren
+immer was anderes aus, je nachdem welche Zahlen aus der Klasse wir
+wählen. Stimmt, es kommen je nachdem verschiedene Zahlen heraus, aber die
+liegen alle in derselben Klasse. Das ist der Inhalt des Lemmas.
 
-  $$ 37 = 3 * 10 + 7     7 = 37 - 3 * 10 $$
+Können wir N beliebig wählen? Nehmen wir an N ist zusammengesetzt, also N =
+n_1 n_2 mit n_1, n_2 < N, Dann ist n_1 n_2 \equiv 0, im Widerspruch zur
+Körpereigenschaft oben.
 
-Der bleibende Rest ist 7. Nun dasselbe Verfahren mit 10 und 7:
+Also muss $N$ notwendigerweise prim sein. Diese Bedingung ist jedoch auch
+schon hinreichend.
 
-  $$ 10 = 1 * 7 + 3     3 = 10 - 1 * 7 $$
+Wie rechnen wir nun praktisch? Wir beschränken uns auf die Zahlen 0..p-1, wenn
+die Ausgangszahlen nicht in diesem Bereich liegen, wenden wir Division mit
+Rest durch $p$ an. Addition und Multiplikation geht normal, nur dass wir das
+Ergebis wieder durch Division mit Rest auf den Bereich 0..p-1 bringen.
 
-7 mit Rest durch 3:
+Wenn a in 0..p-1 dann -a = p-a
 
-  $$ 7 = 2 * 3 + 1    1 = 7 - 2 * 3 $$
+Division?
 
-Wir sehen: die Zahlen werden immer kleiner, in der Tat kann man beweisen
-(Übungsaufgabe) dass sie sich bei jedem Schritt in etwa halbieren. (Stimmt
-auch nicht ganz: wir müssem um effizienter zu werden mit Resten im Bereich
-[-(p-1)/2 .. (p-1)/2] rechnen.) Irgenwann kommen wir mal zu einer Division die
-Rest 1 liefert.
+Was ist eigentlich $\frac a b (mod p) = q$? Es ist die Zahl $q$ aus $0..p-1$, für
+die $q*b = a (mod p)$ oder:  $a - q*b = m p$ für $m \in \Z$. Offenbar reicht
+uns ein Verfahren um $\frac 1 b$ zu bestimmen. Am besten lässt sich das mit
+einem Beispiel erläutern: Wir legen $p=37 fest, und wollen das multiplikative
+Inverse von 10 bestimmen, also zwei Zahlen q und m so dass:
 
-In der letzten Zeile sehen wir die 1 als Summe von Produkten von 7 und 3.
-Mit der vorletzten Zeile können wir die 3 als Summe von Produkten von 7 und 10
-schreiben, damit bekommen wir die 1 als Summe von Produkten von 7 und 10.
-Die 7 wiederum können wir mit der obersten Zeile als Summe von Produkten aus
-37 und 10 ausdrücken und erhalten so am Schluss 1 als Summe von Produkten 10
-und 37:
+  m * 37 + q * 10 = 1
 
-$$ 1 = 1 * 7 - 2 * 3 = 1 * 7 - 2 * (10 - 1 * 7) =
-     = 3 * 7 - 2 * 10 = 3 * (37 - 3 * 10) - 2 * 10 =
-     = 3 * 37 - 11 * 10 $$
+Das m selbst brauchen wir nicht, aber wenn es bei dem Verfahren mit
+herausfällt, ist das zur Kontrolle auch ok. Woran wir eigentlich interessiert
+sind, ist das $q$.
 
-Jetzt haben wir noch ein kleines Vorzeichenproblem schließlich wollten wir
-(s.o.) bei der 10 einen positiven Faktor. Das haben wir aber gleich:
+Das sieht jetzt ein wenig wie ein Zaubertrick aus. Wir fangen mit etwas völlig
+Offensichtlichen an, was uns der Lösung scheinbar keinen Schritt weiterbringt,
+Wir schreiben zwei Anfangsgleichungen hin:
 
+  1 * 37 + 0 * 10 = 37  (1)
+  0 * 37 + 1 * 10 = 10  (2)
 
-         -11 * 10 + 3 * 37 =
-       = (26 - 37) * 10 + 3 * 37 =
-       = 26 * 10 - 7 * 37
+Nun kombinieren wir diese Gleichungen auf die richtige Art und Weise, so dass
+die Zahl auf der linken Seite immer kleiner wird. Auf der rechten Seite stehen
+37 und 10, wir teilen 37 durch 10 mit Rest und erhalten: $37 = 3*10 + 7$,
+bzw. $37 - 3 * 10 = 7$, wir multiplizieren also Gleichung (2) mit -3 und
+zählen Gleichung (1) dazu:
 
-Und erhalten damit 26 als Inverses von 10 (mod 37).
+  (1*1 + (-3)*0) * 37 + (1*0 - 3*1) * 10 = 1*37-3*10 = 7
+  1 *37 + (-3) * 10 = 7 (3)
+
+Jetzt kombinieren wir Gleichung (2) und (3). Die Zahlen auf der rechten Seite
+sind 10 und 7. Wir teilen 10 mit Rest durch 7 und bekommen: $10 = 1 * 7 + 3$
+also $1 * 10 - 1 * 7 = 3$, heißt wir müssen Gleichung (3) mit -1
+multiplizieren und von Gleichung (2) abziehen:
+
+  (1*0 - 1*1) * 37 + (1*1 + (-1)*(-3)) * 10= 1*10-1*7 = 3
+  (-1) * 37 + 4 * 10 = 3 (4)
+
+Die Zahlen auf den rechten Seiten sind 7 und 3, wir teilen dann 7 durch 3 mit
+Rest und bekommen: $7 = 2*3 - 1$ bzw. $7 - 2*3 = 1$, also nehmen wir Gleichung
+4 mit $(-2)$ mal und zählen Gleichung (3) dazu:
+
+  (1 + (-1)*(-2)) * 37 + (1*(-3) + (-2)*4) * 10 = 7-2*3 = 1
+  (-3) * 37 + (-11) * 10 = 1 (5)
+
+Damit ist das multiplikative Inverse von 10 mod 37 gleich -11, bzw. $-11 + 37
+= 26$
+
+Das gesamte Verfahren ist letztlich der euklidische Algorithmus zum Bestimmen
+des kleinsten gemeinsament Teilers der Zahlen 37 und 10, plus ein wenig
+Buchhaltung. Weil 10 und 37 teilerfremd sind (sonst wäre 37 nicht prim), muss
+die Folge der Zahlen auf der rechten Seite irgendwann mit 1 enden.
+
+Wenn man beim Teilen mit Rest auch negative Rest erlaubt, statt wie oben auf
+positiven zu bestehen, kann man sehen, dass die Folge der Zahlen auf der
+rechten Seite immer mindestens um den Faktor 2 kleiner wird, das Verfahren ist
+also sehr effizient.
+
+Außerdem braucht man sich nie mehr als die Koeffizienten der letzten zwei
+Gleichungen zu merken, das Verfahren braucht also konstanten Speicherplatz.
 
 Über endlichen Körpern sehen unsere elliptischen Kurven nun wenig intuitiv
 aus. Beispiel: [finplot.png]
-
-Praktisch werden in standardisierten Verfahren im Wesentlichen vier Kurven
-benutzt, jeweils mit verschiedenen endlichen Köpern. Die Primzahlen haben
-dabei 76, 117 und 156 Dezimalstellen.
 
 Funktioniert der Übergang zu endlichen Körpern nun überhaupt? Will heißen:
 Gibt es überhaupt genügend Punkte auf diesen Kurven? Die Antwort hat Helmut
 Hasse (* 25.8.1898  + 26.12.1979) 1933 gegeben:
 
-Satz (Hasse-Schranke): Sei E eine elliptische Kurve über \F_q Sein N die
+Satz (Hasse-Schranke): Sei E eine elliptische Kurve über \F_p Sei N die
 Anzahl der Punkte auf E. Dann ist
 
-$$ \| N - q - 1 \| \le 2 \sqrt{q} $$
+$$ \| N - p - 1 \| \le 2 \sqrt{p} $$
 
-Die Anzahl von Punkten überhaupt ist $2q + 1$, da \F_q q Elemente hat (Das + 1
-ist für den Punkt im Unendlichen).
+Zu jedem x-Wert gibt es entweder keinen oder zwei Punkte auf der Kurve. Die Anzahl
+der möglichen x-Werte ist p, der Satz sagt also, dass auf der Kurve etwa halb
+so viele Punkte liegen wie maximal möglich wäre.
+
 Für große q (und solche interessieren uns ja für die Kryptographie) ist die
 Wurzel im Vergleich zu q eher klein, und damit besagt der Satz, das etwa die
 Hälfte der Punkte des gesamten Raumes auf der Kurve liegt.
 
+Praktisch werden in standardisierten Verfahren im Wesentlichen vier Kurven
+benutzt, jeweils mit verschiedenen endlichen Köpern. Die Primzahlen haben
+dabei 76, 117 und 156 Dezimalstellen.
+
 EC Diffie-Hellman
 =================
 
+Jetzt haben wir alle Zutaten beisammen: Wir haben elliptische Kurven, und
+Punkte darauf, mit denen wir (bzw. die Computer) effizient rechnen können, wo
+kommt jetzt die Kryptographie her?
 
-Erste Anmerkung: Diffie-Hellman ist kein Verschlüsselungsverfahren,
+Diffie-Hellman ist kein Verschlüsselungsverfahren,
 und auch kein Signaturverfahren, sondern es erlaubt es zwei Leuten
 Alice und Bob über einen öffentlichen Kanal mit Lauscher E sich auf
 ein gemeinsames Geheimnis zu einigen, das E nicht herausbekommen kann.
@@ -473,7 +513,10 @@ Eine Möglichkeit, so ein gemeinsames Geheimnis zu nutzen wäre zum
 Beispiel es als Key für ein konventionellles symmetrisches
 Verschlüsselungsverfahen zu nutzen (AES).
 
-Zurück zu EC-Diffie-Hellmann:
+Benannt nach seinen Erfindern Whitfield Diffie (* 1944-06-05) und Martin
+Hellman (*1945-10-02), nach einem generellen Konzept von Ralph Merkle (*
+1952-02-02) Das Verfahren wurde 1976 publiziert, basierte damals jedoch nicht
+auf elliptischen Kurven.
 
 Vorher haben A und B eine elliptische Kurve E zusammen mit einem
 endlichen Körper K festgelegt, und zusätzlich noch einen Punkt P. P

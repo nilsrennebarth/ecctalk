@@ -1,14 +1,22 @@
 \documentclass{beamer}
 % Use lualatex to process this file
 \usepackage{svg}
-\usepackage{german}
-\usepackage{amsmath}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amscd}
 \usetheme{Hannover}
 \title{Elliptische Kurven: Was ist das?}
 \subtitle{Und wie macht man damit Kryptographie?}
 \author{Nils Rennebarth}
 \date{November 2024}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\Proj}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newtheorem{folgerung}[theorem]{Folgerung}
+\newtheorem{beispiel}[theorem]{Beispiel}
 \begin{document}
 
 % ----------------------
@@ -61,14 +69,14 @@
 
   \begin{definition}[Weißerstraß Normalform]
     Die Normalform einer elliptischen Kurve E über den reellen Zahlen
-    $\mathbb{R}$ ist:
+    $\R$ ist:
 
     \begin{equation}
       y^2 = x^3 + ax + b
       \label{eq:weier}
     \end{equation}
 
-    mit a und b aus $\mathbb{R}$, wobei:
+    mit a und b aus $\R$, wobei:
     \begin{equation}
       \Delta_E = -4a^3 - 27b^2 \ne 0
     \end{equation}
@@ -99,7 +107,7 @@
       s = \frac{y_p - y_q}{x_p - x_q} \text{ falls } x_p \ne x_q \text{, }
       s = \frac{3x_p^2 + a}{2y_p} \text{ falls } x_p = x_q, y_p \ne 0
     \end{equation*}
-    mit $a$ aus (\ref{eq:weier}).
+    mit $a$ aus \eqref{eq:weier}.
     Dann gilt für den Punkt $R = P \oplus Q = (x_r, y_r)$:
     \begin{equation}
       \begin{split}  \label{ec:add}
@@ -126,12 +134,12 @@
 \begin{frame}
   \frametitle{Projektive Ebene, arithmetisch}
   \begin{eqnarray*}
-    (x,y) \in \mathbb{R}^2
-    & \Rightarrow & (x, y, z) \in \mathbb{R}^3 - \{(0,0,0)\} \\
+    (x,y) \in \R^2
+    & \Rightarrow & (x, y, z) \in \R^3 - \{(0,0,0)\} \\
     y^2 = x^3 + ax + b
     & \Rightarrow & y^2z = x^3 + axz^2 + bz^3 \\
     (x_1, y_1, z_1) &\equiv &(x_2, y_2, z_2) \text{ wenn } \\
-    \exists \lambda \in \mathbb{R}:
+    \exists \lambda \in \R:
     (\lambda x_1, \lambda y_1, \lambda z_1) & = & (x_2, y_2, z_2)
   \end{eqnarray*}
   \begin{eqnarray*}
@@ -182,22 +190,40 @@
     $$ P \oplus Q = \mathcal{O} $$
   \end{definition}
   \begin{Theorem}
-    Mit dieser Erweiterung von (\ref{ec:add}) für die Addition von Punkten einer
-    elliptischen Kurve $E$ wird $(E, \oplus)$ zu einer \bf{Gruppe}.
+    Mit dieser Erweiterung von \eqref{ec:add} für die Addition von Punkten einer
+    elliptischen Kurve $E$ wird $(E, \oplus)$ zu einer {\bf Gruppe}.
   \end{Theorem}
 \end{frame}
 
 \section{Endliche Körper}
 \begin{frame}
+  \frametitle{Körper}
+  \begin{definition}
+    Eine Menge in der die vier Grundrechenarten $+, -, *, /$ definiert sind,
+    und die dafür üblichen Regeln gelten, nennt man {\bf Körper}
+    (engl. {\bf field}).
+  \end{definition}
+
+  \pause
+  Beispiele für Körper sind die reellen Zahlen $\R$, die rationalen
+  Zahlen $\Q$ und die komplexen Zahlen $\mathbb{C}$.
+
+  \pause
+  \begin{folgerung}
+    Sei K ein Körper, seien $a, b \in K$ mit $a \ne 0$ und $b \ne 0$.
+    Dann gilt: $a * b \ne 0$.
+  \end{folgerung}
+\end{frame}
+\begin{frame}
   \frametitle{Äquivalenzklassen mod N}
   \begin{definition}
-    Sei $N \in \mathbb{N}, N > 1$. Zwei ganze Zahlen $a$ und $b$ heißen
+    Sei $N \in \N, N > 1$. Zwei ganze Zahlen $a$ und $b$ heißen
     \emph{äquivalent mod N} wenn
-    $$ a \equiv b (mod\ N): \exists m \in \mathbb{Z}: a-b = mN $$
+    $$ a \equiv b (mod\ N): \exists m \in \Z: a-b = mN $$
   \end{definition}
 
   \begin{lemma}
-    Sei $N \in \mathbb{N}, N > 1$, seien $a_1, a_2, b_1, b_2 \in \mathbb{Z}$,
+    Sei $N \in \N, N > 1$, seien $a_1, a_2, b_1, b_2 \in \Z$,
     mit $a_1 \equiv a_2 (mod\ N)$ und $b_1 \equiv b_2$  dann gilt:
     \begin{equation}
       \begin{split}
@@ -209,7 +235,104 @@
   \end{lemma}
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Primkörper}
+
+  $N$ beliebig? Nein:
+
+  \begin{lemma}
+  Sei $N$ eine zusammengesetzte Zahl, dann ist die Menge der
+  Äquivalenzklassen $mod\ N$ kein Körper.
+  \end{lemma}
+  \begin{proof}
+    N zusammengesetzt heißt, es gibt $n_1, n_2 \in \N$ mit $n_1 < N$
+    und $n_2 < N$, so dass $n_1 n_2 = N$. Dann ist $n_1 \not\equiv 0$, und
+    $n_2 \not\equiv 0$. Aber $n_1 n_2 \equiv 0$, im Widerspruch zur
+    Körpereigenschaft oben.
+  \end{proof}
+  \begin{theorem}
+    Sei $p$ eine Primzahl. Dann ist die Menge der Äquivalenzklassen $mod\ p$
+    ein Körper: $\F_p$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Primkörper, Division}
+  Um $\frac{a}{b}$ zu berechnen reicht es $\frac 1 b$ zu finden, also eine Zahl
+  $b'$, so daß $b * b' \equiv 1 (mod\ p)$, bzw. zwei Zahlen $m$ und $b' \in
+  \Z$, so dass $m * p + b' * b = 1$.
+  \begin{beispiel}
+    Sei $p = 37$, $b = 10$, wir suchen $b' \in 0..36$ und
+    $m \in \Z$ mit $m * 37 + b' * 10 = 1$
+  \end{beispiel}
+\end{frame}
+\begin{frame}
+  \frametitle{Primkörper, Beispiel Division}
+  \vspace*{-1cm}
+  \begin{eqnarray}
+    1 * 37 + 0 * 10 = 37  \label{ex:1} \\
+    0 * 37 + 1 * 10 = 10  \label{ex:2}
+  \end{eqnarray}
+  $37 - 3 * 10 = 7$, add \eqref{ex:1} and $-3 * \eqref{ex:2}$
+  \begin{eqnarray}
+    1 *37 + (-3) * 10 = 7 \label{ex:3}
+  \end{eqnarray}
+  $10 - 1 * 7 = 3$, add \eqref{ex:2} and $-1 * \eqref{ex:3}$
+  \begin{eqnarray}
+    (-1) * 37 + 4 * 10 = 3 \label{ex:4}
+  \end{eqnarray}
+  $7 - 2*3 = 1$, add \eqref{ex:3} and $-2 * \eqref{ex:4}$
+  \begin{eqnarray}
+    (-3) * 37 + (-11) * 10 = 1
+  \end{eqnarray}
+  $\Rightarrow$ Inverse von 10 ist -11 bzw 26.
+\end{frame}
+\begin{frame}
+  \frametitle{Elliptische Kurve über endlichem Körper}
+  Anschaulichkeit leidet ein wenig:
+  \begin{figure}
+    \includegraphics[height=0.6\textwidth]{finplot.png}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \frametitle{Bemerkungen}
+  Gibt es genügend große? Ja:
+  \begin{theorem}[Hasse-Schranke]
+    Sei E eine elliptische Kurve über $\F_p$. Sei $N$ die Anzahl der Punkte
+    auf E, dann gilt:
+    \begin{equation}
+      \| N - p - 1 \| \le \sqrt{p}
+    \end{equation}
+  \end{theorem}
+  In der Praxis werden momentan im Wesentlichen vier Kurven über vier
+  verschiedenen Primkörpern benutzt, die Primzahlen haben dabei 76, 117 und
+  156 Dezimalstellen.
+\end{frame}
+
+
+
 \section{Diffie-Hellmann Schlüsselaustausch}
+\begin{frame}
+  Elliptische Kurven Diffie-Hellman
+  \begin{itemize}
+  \item Kein Signatur- oder Verschlüsselungsverfahren, sondern ein
+    Schlüsselaustauschprotokoll
+  \item Vorher festlegen: Endlicher Körper $\F_p$, elliptische Kurve E, über
+    $\F_p$, also die Parameter $a$, $b$ der Weierstraß-Normalform, Basispunkt
+    $P = (x_p, y_p)$.
+  \item Am Schluss besitzen Alice und Bob denselben gemeinsamen Schlüssel.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Diffie Hellman Schlüsselaustausch}
+  \begin{equation}
+  \begin{CD}
+    \text{\large A}    @>\overbrace{P + \ldots + P}^{s_A-mal}>> \text{\large B}
+  \end{CD}
+  \end{equation}
+\end{frame}
+
 \begin{frame}
   \tableofcontents
 \end{frame}
