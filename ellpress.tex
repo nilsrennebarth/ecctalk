@@ -75,6 +75,7 @@
 
   Es reicht jedoch, Kurven der folgenden Form zu betrachten:
 
+  \pause
   \begin{definition}[Weißerstraß Normalform]
     Die Normalform einer elliptischen Kurve E über den reellen Zahlen
     $\R$ ist:
@@ -110,13 +111,18 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Addition von Punkten, arithmetisch}
+  \frametitle{Addition, arithmetisch}
   \begin{theorem}[Additionsformel]
     Seien $P = (x_p, y_p)$ und $Q=(x_q, y_q)$ zwei Punkte auf der elliptischen
     Kurve $E$. Sei weiterhin:
     \begin{equation*}
-      s = \frac{y_p - y_q}{x_p - x_q} \text{ falls } x_p \ne x_q \text{, }
-      s = \frac{3x_p^2 + a}{2y_p} \text{ falls } x_p = x_q, y_p \ne 0
+      s = \left\{
+        \begin{array}{l}
+          \frac{y_p - y_q}{x_p - x_q} \text{ falls } x_p \ne x_q \\
+          \\
+          \frac{3x_p^2 + a}{2y_p}     \text{ falls } x_p = x_q, y_p \ne 0
+        \end{array}
+        \right.
     \end{equation*}
     mit $a$ aus \eqref{eq:weier}.
     Dann gilt für den Punkt $R = P \oplus Q = (x_r, y_r)$:
@@ -239,18 +245,18 @@
   \frametitle{Äquivalenzklassen mod N}
   \begin{definition}
     Sei $N \in \N, N > 1$. Zwei ganze Zahlen $a$ und $b$ heißen
-    \emph{äquivalent mod N} wenn
-    $$ a \equiv b (mod\ N): \exists m \in \Z: a-b = mN $$
+    \emph{äquivalent modulo N}, geschrieben $a \equiv b \pmod N$, wenn
+    $$ \exists m \in \Z: a-b = mN $$
   \end{definition}
 
   \begin{lemma}
     Sei $N \in \N, N > 1$, seien $a_1, a_2, b_1, b_2 \in \Z$,
-    mit $a_1 \equiv a_2 (mod\ N)$ und $b_1 \equiv b_2$  dann gilt:
+    mit $a_1 \equiv a_2 \pmod N$ und $b_1 \equiv b_2 \pmod N$  dann gilt:
     \begin{equation}
       \begin{split}
         \label{op:mod}
-        a_1 + b_1 & \equiv  a_2 + b_2 \ (mod\ N) \\
-        a_1 \cdot b_1 & \equiv  a_2 \cdot b_2 \ (mod\ N)
+        a_1 + b_1 & \equiv  a_2 + b_2 \pmod N \\
+        a_1 \cdot b_1 & \equiv  a_2 \cdot b_2 \pmod N
       \end{split}
     \end{equation}
   \end{lemma}
@@ -280,10 +286,10 @@
 \begin{frame}
   \frametitle{Primkörper, Division}
   Um $\frac{a}{b}$ zu berechnen reicht es $\frac 1 b$ zu finden, also eine Zahl
-  $b'$, so daß $b * b' \equiv 1 (mod\ p)$, bzw. zwei Zahlen $m$ und $b' \in
-  \Z$, so dass $m * p + b' * b = 1$.
+  $b'$, so daß $b * b' \equiv 1 \pmod p$, bzw. zwei Zahlen $m$ und
+  $b' \in \Z$, so dass $m * p + b' * b = 1$.
   \begin{beispiel}
-    Sei $p = 37$, $b = 10$, wir suchen $b' \in 0..36$ und
+    Sei $p = 37$, $b = 10$, wir suchen $b' \in \{0 \ldots 36\}$ und
     $m \in \Z$ mit $m * 37 + b' * 10 = 1$
   \end{beispiel}
 \end{frame}
@@ -319,7 +325,7 @@
 \end{frame}
 \begin{frame}
   \frametitle{Bemerkungen}
-  Gibt es genügend große? Ja:
+  Gibt es Kurven die genügend viele Punkte haben? Ja:
   \begin{theorem}[Hasse-Schranke]
     Sei E eine elliptische Kurve über $\F_p$. Sei $N$ die Anzahl der Punkte
     auf E, dann gilt:
