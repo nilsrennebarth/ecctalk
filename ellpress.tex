@@ -23,10 +23,21 @@
 \begin{frame}
   \titlepage
 \end{frame}
-\section{Einführung}
 % ----------------------
-\begin{frame}
 
+\section{Einführung}
+\begin{frame}
+  \frametitle{Vorschau}
+  \begin{itemize}
+  \item Was sind elliptische Kurven und wie sehen sie aus?
+  \item Addition von Punkten: geometrisch $\Longrightarrow$ arithmetisch.
+  \item Übergang zur projektiven Ebene
+  \item Wie rechnen Computer auf so etwas?
+  \item Wie nutzt man das alles zur Kryptographie?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Was sind elliptische Kurven}
   \framesubtitle<1-4>{Beispiel}
   \framesubtitle<5>{Dies ist \emph{keine} elliptische Kurve}
@@ -37,11 +48,8 @@
   \includegraphics<4>[height=0.7\textwidth]{ec4-p0-p4.png}
   \includegraphics<5>[height=0.7\textwidth]{nec-m3-p2.png}
   \end{figure}
-
 \end{frame}
 
-
-% ----------------------
 \begin{frame}
   \frametitle{Was haben die mit Ellipsen zu tun?}
   \begin{itemize}
@@ -81,9 +89,12 @@
       \Delta_E = -4a^3 - 27b^2 \ne 0
     \end{equation}
   \end{definition}
-
 \end{frame}
+
+% ----------------------
+
 \section{Addition von Punkten}
+
 \begin{frame}
   \frametitle{Addition von Punkten, geometrisch}
   \begin{figure}
@@ -130,7 +141,10 @@
   \end{equation}
 \end{frame}
 
+% ----------------------
+
 \section{Projektive Ebene}
+
 \begin{frame}
   \frametitle{Projektive Ebene, arithmetisch}
   \begin{eqnarray*}
@@ -158,6 +172,7 @@
     & \Rightarrow & (x_2, y_2, z_2) \in E
   \end{eqnarray*}
 \end{frame}
+
 \begin{frame}
   \frametitle{Projektive Ebene, arithmetisch}
   \framesubtitle<1>{Normale Punkte}
@@ -173,12 +188,14 @@
     Punkt auf der Kurve.
   \end{itemize}
 \end{frame}
+
 \begin{frame}
   \frametitle{Projektive Ebene, geometrisch}
   \begin{figure}
     \includegraphics[height=0.57\textwidth]{ell-curve-projective.png}
   \end{figure}
 \end{frame}
+
 \begin{frame}
   \frametitle{zusätzliche Additionsregeln}
   \begin{definition}
@@ -195,7 +212,10 @@
   \end{Theorem}
 \end{frame}
 
+% ----------------------
+
 \section{Endliche Körper}
+
 \begin{frame}
   \frametitle{Körper}
   \begin{definition}
@@ -214,6 +234,7 @@
     Dann gilt: $a * b \ne 0$.
   \end{folgerung}
 \end{frame}
+
 \begin{frame}
   \frametitle{Äquivalenzklassen mod N}
   \begin{definition}
@@ -234,7 +255,6 @@
     \end{equation}
   \end{lemma}
 \end{frame}
-
 
 \begin{frame}
   \frametitle{Primkörper}
@@ -267,6 +287,7 @@
     $m \in \Z$ mit $m * 37 + b' * 10 = 1$
   \end{beispiel}
 \end{frame}
+
 \begin{frame}
   \frametitle{Primkörper, Beispiel Division}
   \vspace*{-1cm}
@@ -288,6 +309,7 @@
   \end{eqnarray}
   $\Rightarrow$ Inverse von 10 ist -11 bzw 26.
 \end{frame}
+
 \begin{frame}
   \frametitle{Elliptische Kurve über endlichem Körper}
   Anschaulichkeit leidet ein wenig:
@@ -310,9 +332,10 @@
   156 Dezimalstellen.
 \end{frame}
 
-
+% ----------------------
 
 \section{Diffie-Hellmann Schlüsselaustausch}
+
 \begin{frame}
   Elliptische Kurven Diffie-Hellman
   \begin{itemize}
@@ -324,17 +347,50 @@
   \item Am Schluss besitzen Alice und Bob denselben gemeinsamen Schlüssel.
   \end{itemize}
 \end{frame}
+
 \begin{frame}
   \frametitle{Diffie Hellman Schlüsselaustausch}
-  \begin{equation}
-  \begin{CD}
-    \text{\large A}    @>\overbrace{P + \ldots + P}^{s_A-mal}>> \text{\large B}
-  \end{CD}
-  \end{equation}
+  \begin{equation*}
+    \begin{CD}
+      {\hbox to 0pt{\hss $s_A \in \N$ }}\text{\LARGE A}
+      @. \text
+      {\LARGE B}{\hbox to 0pt{ $s_B \in \N$\hss}} \\
+      \text{\LARGE A}
+      @>\ \overbrace{P + \ldots + P}^{s_A-mal} = P_A\ >>
+      \text{\LARGE B} \\
+      \text{\LARGE A}
+      @<\ P_B = \overbrace{P + \ldots + P}^{s_B-mal}\ <<
+      \text{\LARGE B} \\
+      {\hbox to 0pt{\hss $P_S = \overbrace{P_B + \ldots + P_B}^{s_A-mal}$ }}
+      \text{\LARGE A}
+      @.
+      \text{\LARGE B}
+      {\hbox to 0pt{ $P_S = \overbrace{P_A + \ldots + P_A}^{s_B-mal}$\hss}}
+    \end{CD}
+  \end{equation*}
 \end{frame}
 
 \begin{frame}
-  \tableofcontents
+  \frametitle{Zusammenfassung}
+  \vspace*{-1cm}
+  Was hatten wir?
+  \begin{itemize}
+  \item Ein Kurve, wahlweise in Fisch- oder Knubbelform.
+  \item Eine geometrische Operation $\oplus$ auf der Kurve, die zu zwei
+    Punkten einen dritten bestimmt.
+  \item Ein Ausflug in die dritte Dimension, der der Kurve einen extra Punkt
+    hinzufügt. Nun ist $\oplus$ eine Addition.
+  \item Ein Ausflug in endliche Körper, danach kann ein Computer mit diesen
+    Punkten rechnen.
+  \item Ein Protokoll, wie man sich mit diesen Punkten über einen öffentlichen
+    Kanal ein gemeinsames Geheimnis erzeugt.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    \Large Danke für Eure Aufmerksamkeit
+  \end{center}
 \end{frame}
 
 \end{document}

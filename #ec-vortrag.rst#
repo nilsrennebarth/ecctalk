@@ -2,72 +2,7 @@
  Vortrag Elliptische Kurven
 ============================
 
-Konzept 1
-=========
-Vorstellung des generellen mathematischen Konzeptes neue Objekte zu bilden
-indem schon vorhandene in Äquivalenzklassen aufgeteilt werden:
 
-1) Punkte im 3-dimensionaln Raum ohne Nullpunkt. Alle Punkte die auf derselben
-   Geraden durch den Ursprung liegen sind äquivalent zueinander.
-
-2) Ganze Zahlen, und eine Primzahl p gegeben. Alle Zahlen, die denselben Rest
-   beim Teilen durch p besitzen sind äquivalent.
-
-Können beidesmal eine Untermenge wählen die die Repräsentanten für die Klassen
-bilden:
-
-1) Punkte {(x, y, 1) x, y \in \R} {(x, 1, 0), x \in \R}, {(1, 0, 0)}
-2) Zahlen 0 ... (p-1)
-
-Dann kann man die in der Gesamtmenge definierten Operationen auf die neuen
-Objekte übertragen, indem man sie auf den Repräsentanten wie gewohnt
-durchführt, und dann als Ergebnis die Äquivalenzklasse nimmt, in der das
-Ergebnis liegt.
-
-Beispiele: In 1) Gerade durch zwei Punkte, nimm zwei beliebige Repräsentanten,
-zeichne eine Gerade durch beide, fasse alle Punkte auf der Geraden als
-Repräsentanten auf, Die Gesamtmenge der Punkte ist dann eine Ebene, und die
-ist unabhängig von der Wahl der Repräsentaten. Diese Menge von Klassen ist im
-projektiven Raum die Gerade durch zwei Punkte.
-
-In 2) nimm zwei beliebige Repräsentanten, bilde die Summe, definiere das
-Ergebnis als die Summe der Äquivalenzklassen. Dasselbe mit dem Produkt:
-
-    2 + 6 = 8 = 1 (mod 7)
-    2 * 6 = 12 = 5 (mod 7)
-
-
-Die neuen Objekte können auch ganz neue Eigenschaften haben - das macht sie ja
-gerade so interessant:
-
-1) Geraden werden in der projektiven Ebene zu Großkreisen auf der
-   Kugeloberfläche. Damit
-   schneiden sich zwei Geraden genau in zwei Punkten, die liegen aber genau
-   gegenüber (Antipoden) sind also äquivalent. Mit anderen Worten: Zwei
-   Geraden in der projektiven Ebene schneiden sich genau in einem
-   Punkt (nicht-euklidische Geometrie).
-2) Modulo 13 gilt:
-
-   5 * 5 = 25 = 12 = -1 (mod 13)
-
-   Es gibt also in den Zahlen mod 13 eine `Wurzel aus -1`
-
-Aber Vorsicht: Wir müssen darauf achten, dass das Endergebnis `wohldefiniert`
-ist: Wenn man zwei andere Repräsentanten nimmt, muss dasselbe herauskommen,
-wobei dasselbe heißt: die beiden verschiedenen Ergebnisse liegen in derselben
-Klasse. Bei Multiplikation und Addition funktioniert das. Beim Wurzelziehen
-beispielsweise geht es schief:
-
-   sqrt(9) = 3
-   sqrt(16) = 4
-
-aber 9 (mod 7) == 2 (mod 7) == 16 (mod 7), wohingegen 3 != 4 (mod 7)
-
-
-Konzept 2
-=========
-Zwischen geometrischer Anschauung (Geraden, Kurven, Schnittpunkte) und den
-zugehörigen arithmetischen Eigenschaften immer wieder hin- und herwechseln.
 
 
 Verlauf des Vortrages:
@@ -82,7 +17,6 @@ Verlauf des Vortrages:
 - Fun fact: Elliptische Kurven können als zweidimensionale
   Verallgemeinerung zum eindimensionalen Kreis angesehen werden.
 
-[Nachsehen: Wer waren Diffie und Hellman? -> Fußnote]
 
 Erst mal ein paar prototypische Beispiele. Genauer gesagt sind dies
 elliptische Kurven in der affinen rellen Ebene. Drei Beispiele mit Formeln und
@@ -576,4 +510,66 @@ Was hatten wir:
   Speicher zu brauchen.
 - Eine Methode wie man sich mit diesen Punkten auf der Kurve auf ein
   gemeinsames Geheimnis einigt das kein anderer kennt.
+
+
+Allgemeines Konzept: Äquivalenzklassen
+======================================
+Vorstellung des generellen mathematischen Konzeptes neue Objekte zu bilden
+indem schon vorhandene in Äquivalenzklassen aufgeteilt werden:
+
+1) Punkte im 3-dimensionaln Raum ohne Nullpunkt. Alle Punkte die auf derselben
+   Geraden durch den Ursprung liegen sind äquivalent zueinander.
+
+2) Ganze Zahlen, und eine Primzahl p gegeben. Alle Zahlen, die denselben Rest
+   beim Teilen durch p besitzen sind äquivalent.
+
+Können beidesmal eine Untermenge wählen die die Repräsentanten für die Klassen
+bilden:
+
+1) Punkte {(x, y, 1) x, y \in \R} {(x, 1, 0), x \in \R}, {(1, 0, 0)}
+2) Zahlen 0 ... (p-1)
+
+Dann kann man die in der Gesamtmenge definierten Operationen auf die neuen
+Objekte übertragen, indem man sie auf den Repräsentanten wie gewohnt
+durchführt, und dann als Ergebnis die Äquivalenzklasse nimmt, in der das
+Ergebnis liegt.
+
+Beispiele: In 1) Gerade durch zwei Punkte, nimm zwei beliebige Repräsentanten,
+zeichne eine Gerade durch beide, fasse alle Punkte auf der Geraden als
+Repräsentanten auf, Die Gesamtmenge der Punkte ist dann eine Ebene, und die
+ist unabhängig von der Wahl der Repräsentaten. Diese Menge von Klassen ist im
+projektiven Raum die Gerade durch zwei Punkte.
+
+In 2) nimm zwei beliebige Repräsentanten, bilde die Summe, definiere das
+Ergebnis als die Summe der Äquivalenzklassen. Dasselbe mit dem Produkt:
+
+    2 + 6 = 8 = 1 (mod 7)
+    2 * 6 = 12 = 5 (mod 7)
+
+
+Die neuen Objekte können auch ganz neue Eigenschaften haben - das macht sie ja
+gerade so interessant:
+
+1) Geraden werden in der projektiven Ebene zu Großkreisen auf der
+   Kugeloberfläche. Damit
+   schneiden sich zwei Geraden genau in zwei Punkten, die liegen aber genau
+   gegenüber (Antipoden) sind also äquivalent. Mit anderen Worten: Zwei
+   Geraden in der projektiven Ebene schneiden sich genau in einem
+   Punkt (nicht-euklidische Geometrie).
+2) Modulo 13 gilt:
+
+   5 * 5 = 25 = 12 = -1 (mod 13)
+
+   Es gibt also in den Zahlen mod 13 eine `Wurzel aus -1`
+
+Aber Vorsicht: Wir müssen darauf achten, dass das Endergebnis `wohldefiniert`
+ist: Wenn man zwei andere Repräsentanten nimmt, muss dasselbe herauskommen,
+wobei dasselbe heißt: die beiden verschiedenen Ergebnisse liegen in derselben
+Klasse. Bei Multiplikation und Addition funktioniert das. Beim Wurzelziehen
+beispielsweise geht es schief:
+
+   sqrt(9) = 3
+   sqrt(16) = 4
+
+aber 9 (mod 7) == 2 (mod 7) == 16 (mod 7), wohingegen 3 != 4 (mod 7)
 
