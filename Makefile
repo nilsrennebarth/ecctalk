@@ -10,7 +10,7 @@ ECEXAMPLES := \
 
 $(ECEXAMPLES): ecurve.py
 
-EPOINTS = ec5-m1-p1-add.png ec6-m1-p1-points.png
+EPOINTS = ec5-m1-p1-add.png ec6-m1-p1-points.png ec7-addpt-000.png
 
 ALLIMG := $(ECEXAMPLES) $(EPOINTS)
 
@@ -34,6 +34,8 @@ ec5-m1-p1-add.png: ecadd.py ecurve.py
 
 ec6-m1-p1-points.png: epoints.py ecurve.py
 	python3 epoints.py
+ec7-addpt-000.png: epointmulti.py ecurve.py
+	python3 epointmulti.py
 finplot.png: fincurve.py
 	python3 fincurve.py
 
@@ -53,6 +55,6 @@ ELLPRESSGEN := \
 images: $(ALLIMG)
 
 clean:
-	rm -f $(ALLIMG) $(ELLPRESSGEN)
+	rm -f $(ALLIMG) ec7-addpt-0??.png $(ELLPRESSGEN)
 
 .PHONY: all images clean
