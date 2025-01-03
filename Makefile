@@ -10,7 +10,7 @@ ECEXAMPLES := \
 
 $(ECEXAMPLES): ecurve.py
 
-EPOINTS = ec5-m1-p1-add.png ec6-m1-p1-points.png ec7-addpt-000.png
+EPOINTS = ec5-m1-p1-add.png ec6-m1-p1-points.png ec7-addpt-000.png finplot.png
 
 ALLIMG := $(ECEXAMPLES) $(EPOINTS)
 
