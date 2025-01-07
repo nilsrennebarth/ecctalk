@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{amsmath,amscd}
+
+\title{Elliptische Kurven: Was ist das? \\
+  Und wie macht man damit Kryptographie?}
+\author{Nils Rennebarth}
+\date{November 2024}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcounter{thm}
+\newtheorem{folgerung}[thm]{Folgerung}
+\newtheorem{beispiel}[thm]{Beispiel}
+\begin{document}
+\maketitle
+\section{Einführung}
+Verlauf des Vortrages:
+
+\begin{itemize}
+\item
+  Was sind sie, wie sehen sie anschaulich aus?
+\item
+  Addition geometrisch gesehen -> Formeln
+\item
+  Übergang zur projektiven Ebene
+\item
+  Um mit Computern zu rechnen ohne Rundungsfehler -> Restklassen
+\item
+  Wie zur Kryptographie nutzen (Diffie-Hellmann für elliptische Kurven)
+\item
+  Fun fact: Ursprünglich erforscht um RSA zu attackieren
+\item
+  Fun fact: Elliptische Kurven können als zweidimensionale
+  Verallgemeinerung zum eindimensionalen Kreis angesehen werden
+\end{itemize}
+
+In Abbildung \ref{fig:ecurves} erst man ein paar Beispiele für elliptische Kurven.
+Genauer gesagt sind dies elliptische Kurven in der affinen rellen Ebene.
+
+
+\begin{figure}[h]
+  \includegraphics[height=5cm]{ec1-m2-p2.png}
+  \includegraphics[height=5cm]{ec2-m2-p1.png}
+  \includegraphics[height=5cm]{ec2-m2-p1.png}
+  
+  \caption{Elliptische Kurven}
+  \label{fig:ecurves}
+\end{figure}
+
+\begin{figure}
+  \centering
+    \includegraphics[height=5cm]{nec-m3-p2.png}
+  \caption{Keine elliptische Kurve}
+  \label{fig:noecurve}
+\end{figure}
+
+Was haben die mit (mathematischen) Ellipsen zu tun?
+
+\begin{itemize}
+\item
+  Die Berechnung der Bogenlänge einer Ellipse, genauer: Das Problem aus dem
+  Winkel die Länge des Bogens bis dorthin zu berechnen, führt auf Integrale
+  die sich nicht in geschlossener Form lösen lassen. Besonders frustrierend,
+  da das ganze beim Kreis so gut funktioniert, und die Verallgemeinerung von
+  Kreis auf Ellipse bei der Flächenberechnung kein Problem darstellt.
+\item
+  Die Umkehrfunktion davon kann man in die komplexen Zahlen hinein
+  fortsetzen. Nennt man elliptische Funktionen.
+\item
+  Mit so einer Funktion und ihrer Ableitung kann man eine 1-1 Abbildung
+  von den Punkten einer elliptischen Kurve auf ein Parallelogramm der
+  komplexen Ebene konstruieren.
+\item
+  $\ldots$ also eher entfernte Verwandschaft.
+\end{itemize}
+
+Kurven von Grad 2 sind alle bekannt und vollständig beschrieben
+(Kegelschnitte). Das nächstkompliziertere wären Kurven vom Grad 3.
+Die allgemeine Form ist ein davon ist ein Polynom in x,y vom Grad 3,
+also:
+
+\begin{equation*}
+  a y^3 + b y^2 x + c y x^2 + d x^3 + e y^2 + f x y + g x^2
+  + h x + i y + j = 0
+\end{equation*}
+
+Das sind 10 verschiedene Parameter, ziemlich viele, sehr
+unübersichtlich. Wir wollen eigentlich zwei Kurven die durch Drehung
+ineinander übergehen nicht wirklich als unterschiedlich betrachten. Auch etwas
+schräg ansehen oder Stauchen und Strecken soll als `dieselbe` Kurve betrachtet
+werden. Arithmetisch gesehen heißt das: Es gibt eine Abbildung
+
+\begin{equation*}
+  x, y \rightarrow f(x, y), g(x, y)
+\end{equation*}
+
+die jeden Punkt (x, y) auf der einen Kurve in einen Punkt (x', y') auf der
+anderen Kurve umrechnet, und umgekehrt. Damit lässt sich (kompliziert, braucht
+viel Mathematik) zeigen, dass es genügt, Kurven der Form:
+
+$$ y^2 = x^3 + ax + b \text{\quad mit \quad } \Delta_E = -4a^3 - 27b^2 \ne 0 $$
+
+zu betrachten. Diese Form nennt man die \textbf{Weierstraßsche Normalform}.
+Die Bedingung ist dazu da, Sachen wie in Abbildung \ref{fig:noecurve}
+auszuschließen.
+
+Die aufmerksame Zuhörerin wird sich fragen, warum die Koeffizenten der
+Beispiele eigentlich alles ganze Zahlen sind, wenn hier doch ständig von
+reellen Zahlen die Rede ist. Mit rationalen Zahlen (vulgo: Brüche ganzer
+Zahlen) kann man alle reellen Zahlen genügend genau annähern.
+Beliebige relle Zahlen hingegen bestehen aus unendlich vielen unregelmäßigen
+Nachkommastellen, mit denen kann man nur ungefähr rechnen, es gibt immer
+Rundungsfehler. Wir wollen - kommt gleich - aber eine einzige Operation immer
+wieder wiederholen und zwar so richtig oft, da müssen wir ohne sich
+akkumulierende Rundungsfehler auskommen, also rechnen wir mit Brüchen ganzer
+Zahlen. Die haben das nächste Problem, die werden potentiell - und auch in der
+Praxis - immer länger, und unendlich viel Speicherplatz und Rechenkapazität
+haben wir leider nicht zur Verfügung. Lösung kommt später.
+
+Vorerst mal bleiben wir bei rationalen Zahlen.
+
+\begin{itemize}
+\item
+  Fun fact: Die Griechen oder genauer Diophant von Alexandria, betrachtete
+  überhaupt nur Zahlen, die sich als ganzzahlige Verhältnisse darstellen
+  lassen, also in heutiger Sprache: rationale Zahlen. Er kam dabei auf die
+  ersten Probleme die sich - in der heutigen mathematischen Sprache formuliert -
+  damit befassten, Punkte auf elliptischen Kurven zu finden, bei denen beide
+  Koordinaten rational sind.
+\item
+  Fun fact negative Zahlen: Diophant kannte bereits negative Zahlen,
+  und wusste wie man mit ihnen rechnen musste, hat sie aber nur als
+  Hilfsgrößen die bei Zwischenrechnungen auftreten betrachtet und
+  nicht als Lösungen von Gleichungen akzeptiert. Bis
+  ins 18. Jahrhundert waren Mathematikern negative Zahlen
+  suspekt:
+  \begin{quote}
+    [negative numbers] darken the
+  very whole doctrines of the equations and make dark of things which
+  are in their nature excessively obvious and simple.
+  \hfill Francis Maseres, 1758
+  \end{quote}
+  Erst im 19. Jahrhundert durch Mathematiker wie Hamilton und Gauß
+  etablierten sich negative Zahlen wie wir sie heute kennen.
+\end{itemize}
+
+\section{Addition von Punkten auf elliptischen Kurven}
+
+Nehmen wir einfach mal an, wir haben eine elliptische Kurve, gegeben in der
+Weierstraßschen Normalform und mit rationalen
+Koeffizenten. Nehmen wir weiter an, wir kennen schon zwei Punkte $(x_1, y_1)$
+und $(x_2, y_2)$ auf
+der Kurve. Dann können wir eine Gerade durch diese legen und bekommen
+einen dritten Schnittpunkt.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=8cm]{ec5-m1-p1-add.png}
+  \caption{Addition zweier Punkte P und Q}
+  
+\end{figure}
+
+Bemerkung 1: Wir bekommen auf keinen Fall einen vierten Schnittpunkt, das
+liegt daran, dass wir uns auf Kurve vom Grad 3 beschränkt haben. Warum
+können Polynome vom Grad n höchstens n Nullstellen besitzen? Übungsaufgabe.
+
+Tip: Polynomdivision, Nullstelle ist linearer Teiler.
+
+Antwort: Polynomdivision, spalte bei Nullstelle $x_0$ $(x - x_0)$ ab, das
+geht genau wenn $x_0$ Nullstelle ist. Bei $n$ Nullstellen komplett zerlegt,
+weitere Nullstelle gibt Widerspruch.
+
+Der Beweise dafür nutzt die Tatsache dass alle $x$-Werte der Schnittpunkte einer
+Geraden mit der Kurve eine Gleichung dritten Gerades erfüllen, und man für
+jede Lösung $x_0$ einen Linearfaktor aus der Gleichung herausziehen kann.
+
+Bemerkung 2: Der dritte Schnittpunkt hat ebenfalls rationale Koordinaten.
+
+Der Beweis benutzt wieder die in Bemerkung 1 erwähnte Zerlegung der Gleichung
+für die x-Koordinaten in Linearfaktoren:
+
+   $$ x^3 + a x^2 + b x + d = (x - x_1) (x - x_2) (x - x_3) $$
+
+Ausmultiplizieren der rechten Seite gibt für den Koeffizenten $a$ bei $x^2$:
+
+  $$ a = - (x_1 + x_2 + x_3) $$
+
+Sowohl $x_1$, $x_2$ und $a$ sind nach unseren Annahmen rational, dann muss es
+auch $x_3$ sein. $y_3$ liegt auf der Geraden, ist also von der Form
+$y = mx + g$ mit $m$ und $g$ beides rational, ist also ebenfalls rational.
+  
+Damit ist etwas interessantes passiert: Wir haben aus zwei rationalen Punkten
+einen dritten konstruiert. Wir können sogar eine Formel für den dritten Punkt
+angeben:
+
+Seien $P=(x_p, y_p)$ und $Q=(x_q, y_q)$, $P + Q = R = (x_r, y_r)$, wobei
+$s := (y_p - y_q) / (x_p - x_q)$
+
+Dann ist:
+
+\begin{eqnarray*}
+  x_r &=& s^2 - x_p - x_q \\
+  y_r &=& - y_p + s (x_p - x_r)
+\end{eqnarray*}
+
+Und es kommt noch besser: Nicht nur dass wir einen dritten Punkt gefunden
+haben, wir haben falls $y_3 \ne 0$ sogar noch einen vierten Punkt, nämlich den
+Punkt $(x_4, y_4) = (x_3, -y_3)$, schließlich ist die Kurve in Weierstraß-Normalform
+spiegelsymmetrisch zur x-Achse. Und mit diesem vierten Punkt können wir
+dieselbe Konstruktion fortsetzen: Gerade durch $(x_1, y_1)$ und $(x_4, y_4)$
+legen, wir erhalten einen dritten Schnittpunkt, $(x_5, y_5)$, spiegeln ihn an
+der x-Achse und erhalten $(x_6, y_6)$, und so weiter.
+
+\end{document}
