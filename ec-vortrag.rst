@@ -64,7 +64,6 @@ Es reicht Kurven der Form:
 
 
 zu betrachten, wobei:
-
   $$ \Delta_E = -4a^3 - 27b^2 != 0 $$
 
 Dies wird die `Weierstraßsche Normalform` genannt.
@@ -129,6 +128,7 @@ Tip: Polynomdivision, Nullstelle ist linearer Teiler.
 Antwort: Polynomdivision, spalte bei Nullstelle x_0 (x - x_0) ab, dass
 geht genau wenn x_0 Nullstelle. Bei n Nullstellen komplett zerlegt,
 weitere Nullstelle->Widerspruch.
+
 Der Beweise dafür nutzt die Tatsache dass alle x-Werte der Schnittpunkte einer
 Geraden mit der Kurve eine Gleichung dritten Gerades erfüllen, und man für
 jede Lösung x_0 einen Linearfaktor aus der Gleichung herausziehen kann.
@@ -339,14 +339,22 @@ Körpereigenschaft oben.
 Also muss $N$ notwendigerweise prim sein. Diese Bedingung ist jedoch auch
 schon hinreichend.
 
-Wie rechnen wir nun praktisch? Wir beschränken uns auf die Zahlen 0..p-1, wenn
-die Ausgangszahlen nicht in diesem Bereich liegen, wenden wir Division mit
-Rest durch $p$ an. Addition und Multiplikation geht normal, nur dass wir das
+Äquivalenzklassen sind schön für die Theorie, aber Wie rechnen wir nun
+praktisch?
+
+Wir beschränken uns auf die Zahlen 0..p-1.
+Wenn die Ausgangszahlen nicht in diesem Bereich liegen sollten, wenden wir
+Division mit Rest durch $p$ an. Addition, Subtraktion und Multiplikation von
+ganzen Zahlen gibt wieder ganze Zahlen, und durch Division mit Rest kommen wir
+wieder in das Intervall 0..p-1.
+
+Addition und Multiplikation geht normal, nur dass wir das
 Ergebis wieder durch Division mit Rest auf den Bereich 0..p-1 bringen.
 
-Wenn a in 0..p-1 dann -a = p-a
+Wenn bei der Division eine ganze Zahl rauskommt, können wir die auch normal
+rechnen.
 
-Division?
+Aber was wenn nicht?
 
 Was ist eigentlich $\frac a b (mod p) = q$? Es ist die Zahl $q$ aus $0..p-1$, für
 die $q*b = a (mod p)$ oder:  $a - q*b = m p$ für $m \in \Z$. Offenbar reicht

@@ -302,6 +302,20 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Rechnen im Primkörper $\F_p$}
+  \begin{itemize}
+  \item Rechnen mit Zahlen $a, b \in \{0..p-1\}$
+  \item $a + b$, $a - b$, $a * b$ normal berechnen.
+  \item Ist Ergebnis nicht in $\{0..p-1\}$ dann mehrfach $p$ addieren oder
+    subtrahieren, um wieder dorthin zu kommen.
+  \item Bei $+$ und $-$ reicht einmal $p$ addieren oder subtrahieren.
+  \item Bei $*$ kann man weiter weg kommen, also Division mit Rest
+  \item Divison normal geht auch, wenn das Ergebnis eine ganze Zahl ist, aber
+    was wenn nicht?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Primkörper, Division}
   Um $\frac{a}{b}$ zu berechnen reicht es $\frac 1 b$ zu finden, also eine Zahl
   $b'$, so daß $b * b' \equiv 1 \pmod p$, bzw. zwei Zahlen $m$ und
