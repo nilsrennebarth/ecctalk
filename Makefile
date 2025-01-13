@@ -1,4 +1,4 @@
-all: images ellpress.pdf
+all: images ellpress.pdf ellmanu.pdf
 
 # Elliptic curves examples
 ECEXAMPLES := \
