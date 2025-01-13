@@ -42,6 +42,9 @@ finplot.png: fincurve.py
 ellpress.pdf: ellpress.tex $(ALLIMG)
 	lualatex ellpress
 
+ellmanu.pdf: ellmanu.tex $(ALLIMG)
+	lualatex ellmanu
+
 ELLPRESSGEN := \
 	ellpress.aux \
 	ellpress.log \
