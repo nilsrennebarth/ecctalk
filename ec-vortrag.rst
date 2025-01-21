@@ -113,11 +113,10 @@ Vorerst mal bleiben wir bei rationalen Zahlen.
 
 
 Nehmen wir einfach mal an, wir haben eine elliptische Kurve, gegeben in der
-Weierstraßschen Normalform und mit rationalen
-Koeffizenten. Nehmen wir weiter an, wir kennen schon zwei Punkte (x_1, y_1)
-und (x_2, y_2) auf
-der Kurve. Dann können wir eine Gerade durch diese legen und bekommen häufig
-einen dritten Schnittpunkt.
+Weierstraßschen Normalform und mit rationalen Koeffizenten. Nehmen wir weiter
+an, wir kennen schon zwei Punkte P = (x_P, y_P) und Q = (x_Q, y_Q) auf der
+Kurve. Dann können wir eine Gerade durch diese legen und bekommen häufig einen
+dritten Schnittpunkt.
 
 Bemerkung 1: Wir bekommen auf keinen Fall einen vierten Schnittpunkt, das
 liegt daran, dass wir uns auf Kurve vom Grad 3 beschränkt haben. Warum
@@ -129,62 +128,70 @@ Antwort: Polynomdivision, spalte bei Nullstelle x_0 (x - x_0) ab, dass
 geht genau wenn x_0 Nullstelle. Bei n Nullstellen komplett zerlegt,
 weitere Nullstelle->Widerspruch.
 
-Der Beweise dafür nutzt die Tatsache dass alle x-Werte der Schnittpunkte einer
+Der Beweis dafür nutzt die Tatsache dass alle x-Werte der Schnittpunkte einer
 Geraden mit der Kurve eine Gleichung dritten Gerades erfüllen, und man für
 jede Lösung x_0 einen Linearfaktor aus der Gleichung herausziehen kann.
 
 Bemerkung 2: Der dritte Schnittpunkt hat ebenfalls rationale Koordinaten.
 
-Der Beweis benutzt wieder die in Bemerkung 1 erwähnte Zerlegung der Gleichung
-für die x-Koordinaten in Linearfaktoren:
+Warum? Für den dritten Schnittpunkt gelten zwei Gleichungen: Die
+Geradengleichung von der Form $y = s * x + o$ (Die genaue Formel für Konstanten
+x und c ausgedrückt durch $x_P, y_P, x_Q, y_Q$ ist vielleicht noch aus der
+Schule bekannt) und die Kurvengleichung $y^2 = x^3 + ax + b$. Durch Einsetzen
+der ersten Gleichung in die zweite kann man das y wegbekommen und erhält eine
+Gleichung nur in x, und zwar vom Grad 3 und mit rationalen Koeffizienten. Sie
+hat die Form:
 
-   x^3 + a x^2 + b x + d = (x - x_1) (x - x_2) (x - x_3) =
+  x^3 + c_2 x^2 + c_1 x + c_0 = 0 (2)
 
-Ausmultiplizieren der rechten Seite gibt für den Koeffizenten a bei x^2:
+Diese Gleichung hat aber zwei Lösungen, die uns schon bekannt sind: $x_P$ und
+$x_Q$. Also kann man die Linearfaktoren $x - x_P$ und $x - x_Q$ aus dem
+Polynom auf der linken Seite herausziehen, dann bleibt nur noch ein
+Linearfaktor übrig, also lässt sich die linke Seite schreiben als:
 
-  a = - (x_1 + x_2 + x_3)
+  (x - x_P) (x - x_Q) (x - x_3) (3)
 
-Sowohl x1, x2 und a sind nach unseren Annahmen rational, dann muss es auch x_3
-sein. y_3 liegt auf der Geraden, ist also von der Form y = mx + g mit m und g
-beides rational, ist also ebenfalls rational.
+mit irgendeinem unbekannten x_3. Es handelt sich aber weiterhin um dasselbe
+Polynom, das heißt wenn wir (3) ausmultiplizeren und den Koeffizienten von
+$x^2$ betrachten, muss dieser gleich $c_2$ sein:
+
+  - x_P - x_Q - x_3 = c_2
+
+Und wenn $x_P, x_Q$ und $a$ rational sind ist es offenbar auch $x_3$.
 
 Damit ist etwas interessantes passiert: Wir haben aus zwei rationalen Punkten
-einen dritten konstruiert: Wir können sogar eine Formel für den dritten Punkt
-angeben:
-
-Seien P=(x_p, y_p) und Q=(x_q, y_q), P + Q = R = (x_r, y_r), wobei 
-
-sei s := (y_p - y_q) / (x_p - x_q)
-
-Dann ist:
-
-  x_r = s^2 - x_p - x_q
-  y_r = - y_p + s (x_p - x_r)
-
+einen dritten konstruiert.
 
 Und es kommt noch besser: Nicht nur dass wir einen dritten Punkt gefunden
 haben, wir haben falls y_3 != 0 sogar noch einen vierten Punkt, nämlich den
-Punkt (x_4, y_4) = (x_3, -y_3) schließlich ist die Kurve in Weierstraß-Normalform
-spiegelsymmetrisch zur x-Achse. Und mit diesem vierten Punkt können wir
-dieselbe Konstruktion fortsetzen: Gerade durch (x_1, y_1) und (x_4, y_4)
-legen, wir erhalten einen dritten Schnittpunkt, (x_5, y_5), spiegeln ihn an
-der x-Achse und erhalten (x_6, y_6), und so weiter.
+Punkt (x_3, -y_3) schließlich ist die Kurve in Weierstraß-Normalform
+spiegelsymmetrisch zur x-Achse.
+
+Bezeichnen wir den so erhaltenen dritten Punkt, also erst dritten Schnittpunkt
+nehmen, dann Spiegeln an der x-Achse als $P \oplus Q =: R = (x_R, x_R)$,
+können wir indem wir das oben Gesagte konkret durchführen eine Formel für R
+bekommen:
+
+Sei s := (y_P - y_Q) / (x_P - x_Q)
+
+Dann ist:
+
+  x_R = s^2 - x_P - x_Q
+  y_R = - y_P + s (x_P - x_R)
+
+
+Und mit diesem Punkt R können wir dieselbe Konstruktion fortsetzen: Gerade
+durch (x_P, y_P) und (x_R, y_R) legen, wir erhalten einen dritten
+Schnittpunkt, spiegeln ihn an der x-Achse und erhalten (x_S, y_S) und so
+weiter.
 
 Example: Kurve $y^2 = x^3 - x + 1$
 
 Anfangs sind P = (1,1) und Q = (-1, 1) (eigentlich == 2P), dann kommen die
 Punkte nP + Q (0, -1), (3, -5), (5, 11), (1/4, 7/8), (-11/9, 34/54)
 
-Image ec5-m1-p1-points.png [TODO: Start with P,Q, add line and 3rd
-intersection, then arrow to sum. Now add R to the box and remove the line and
-the arrow. Repeat until end, Finally make an animated png from it.]
+Images ec7-addpt-xxx.png
 
-
-Damit haben wir eine Operation \x, die aus Punkt P = (x_1, y_1) und Q = (x_2,
-y_2) den Punkt P \mult Q = (x_4, y_4) macht. Warum haben wir den Punkt (x_3,
-y_3) dabei unter den Tisch fallen lassen? Weil wir die gleiche Operation immer wieder
-anwenden wollen, dabei aber nicht immer bei den drei Anfangspunkten bleiben
-wollen.
 
 Es stellt sich heraus, dass die Operation \x folgende Eigenschaften hat
 (Großbuchstaben bezeichnen in den folgenden Formeln Punkte auf der Kurve, also
@@ -217,11 +224,13 @@ heißt, er liege `im Unendlichen`. Wir wollen das aber präzise fassen, und dazu
 machen wir etwas, was auch sonst nützlich ist: Wir treten aus der Ebene heraus
 und sehen uns die Kurve etwas aus der Entfernung an.
 
+
+
 Diesmal beginnen wir mit der arithmetischen Formulierung, da diese im
 Vergleich zur geometrischen Betrachtung etwas einfacher zu beschreiben ist:
 
 Wir nehmen zu den Kurvenkoordinaten x und y im zweidimensionalen Raum die
-Koordinate z im dreidimensionalen Raum dazu allerdings mit der
+Koordinate z im dreidimensionalen Raum dazu, allerdings mit der
 Zusatzbedingung, dass nicht alle drei Werte gleichzeitig Null sein dürfen.
 Warum? Kommt später, wenn wir die geometrische Sichtweise ansehen. Erstmal
 einfach so hinnehmen.
@@ -254,13 +263,17 @@ bei zueinander äquivalenten Punkten nicht ändert, und in der Tat gilt::
     & \Rightarrow & (x_2, y_2, z_2) \in E
 
 
+Für die Addition (s.o.) fehlten uns noch die Fälle $x_p = x_q$ bzw. $P=Q$ und
+$y=0$. Die können wir nun festlegen. Zur praktischen Berechnung spielt der
+Punkt im Unendlichen also keine wirkliche Rolle, er ist einfach ein weiterer
+Spezialfall der Regeln.
+
 Was haben wir geometrisch gesehen gemacht? Wir haben einen Punkt in der Ebene
 durch eine Gerade durch den Nullpunkt ersetzt (Hier kommt die Bedingung dass
 mindestens eine Koordinate $!= 0$ sein muss ins Spiel, sonst bekommt man aus
-einem Punkt nicht eindeutig eine Gerade durch den Nullpunkt).
-Eine Gerade wird zu einer Ebene
-durch den Ursprung. Unsere Kurve wird zu einem Bündel von Geraden, die sich
-wie ein Vorhang bauscht.
+einem Punkt nicht eindeutig eine Gerade durch den Nullpunkt).  Eine Gerade
+wird zu einer Ebene durch den Ursprung. Unsere Kurve wird zu einem Bündel von
+Geraden, die sich wie ein Vorhang bauscht.
 
 Ein klein wenig einfacher wird das, wenn wir unsere Sicht auf eine Kugel vom
 Radius 1 um den Nullpunkt beschränken. Unsere Kurve ist dann tatsächlich eine
@@ -269,11 +282,6 @@ aufgefasst werden müssen. Wenn man nun eine Lichtquelle in den Nullpunkt
 stellt, und in die Ebene $z = 1$ eine Leinwand stellt, wird unsere
 ursprüngliche ebene Kurve genau die Projektion auf die Leinwand, daher der
 Name "projektive Ebene".
-
-Für die Addition (s.o.) fehlten uns noch die Fälle $x_p = x_q$ bzw. $P=Q$ und
-$y=0$. Die können wir nun festlegen. Zur praktischen Berechnung spielt der
-Punkt im Unendlichen also keine wirkliche Rolle, er ist einfach ein weiterer
-Spezialfall der Regeln.
 
 
 Was haben wir bis jetzt?
@@ -293,10 +301,10 @@ Endliche Körper
 ===============
 
 
-Jetzt möchten wir aber konkrete Berechnungen vornehmen und zwar auf Computern,
+Jetzt möchten wir konkrete Berechnungen vornehmen und zwar auf Computern,
 die nicht beliebig genau rechnen können. Zunächst stellen wir fest, das sowohl
 bei der Definition elliptischer Kurven als auch bei den Formeln für die
-Addition nur die normalen Grundrechenarten Addition, Subtraktion,
+Addition von Punkten nur die normalen Grundrechenarten Addition, Subtraktion,
 Multiplikation und Division eingegangen sind, sowie die bekannten
 Rechenregeln. So etwas nennen Mathematiker einen `Körper` (engl. `field`), und
 definieren das noch etwas genauer, aber die Definition wäre in diesem Rahmen

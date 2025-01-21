@@ -131,23 +131,23 @@
 \begin{frame}
   \frametitle{Addition, arithmetisch}
   \begin{theorem}[Additionsformel]
-    Seien $P = (x_p, y_p)$ und $Q=(x_q, y_q)$ zwei Punkte auf der elliptischen
+    Seien $P = (x_P, y_P)$ und $Q=(x_Q, y_Q)$ zwei Punkte auf der elliptischen
     Kurve $E$. Sei weiterhin:
     \begin{equation*}
       s = \left\{
         \begin{array}{l}
-          \frac{y_p - y_q}{x_p - x_q} \text{ falls } x_p \ne x_q \\
+          \frac{y_P - y_Q}{x_P - x_Q} \text{ falls } x_P \ne x_Q \\
           \\
-          \frac{3x_p^2 + a}{2y_p}     \text{ falls } x_p = x_q, y_p \ne 0
+          \frac{3x_P^2 + a}{2y_P}     \text{ falls } x_P = x_Q, y_P \ne 0
         \end{array}
         \right.
     \end{equation*}
     mit $a$ aus \eqref{eq:weier}.
-    Dann gilt für den Punkt $R = P \oplus Q = (x_r, y_r)$:
+    Dann gilt für den Punkt $R = P \oplus Q = (x_R, y_R)$:
     \begin{equation}
       \begin{split}  \label{ec:add}
-        x_r & = s^2 - x_p - x_q \\
-        y_r & = -y_p + s(x_p - x_r)
+        x_R & = s^2 - x_P - x_Q \\
+        y_R & = -y_P + s(x_P - x_R)
       \end{split}
     \end{equation}
   \end{theorem}
@@ -214,13 +214,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Projektive Ebene, geometrisch}
-  \begin{figure}
-    \includegraphics[height=0.57\textwidth]{ell-curve-projective.png}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
   \frametitle{zusätzliche Additionsregeln}
   \begin{definition}
     Seien $P = (x_p, y_p)$ und $Q =(x_q, y_q)$ zwei verschiedene Punkte auf der
@@ -234,6 +227,13 @@
     Mit dieser Erweiterung von \eqref{ec:add} für die Addition von Punkten einer
     elliptischen Kurve $E$ wird $(E, \oplus)$ zu einer {\bf Gruppe}.
   \end{Theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Projektive Ebene, geometrisch}
+  \begin{figure}
+    \includegraphics[height=0.57\textwidth]{ell-curve-projective.png}
+  \end{figure}
 \end{frame}
 
 % ----------------------
@@ -254,8 +254,8 @@
 
   \pause
   \begin{folgerung}
-    Sei K ein Körper, seien $a, b \in K$ mit $a \ne 0$ und $b \ne 0$.
-    Dann gilt: $a * b \ne 0$.
+    Sei K ein Körper, seien $a, b \in K$ mit $a \ne 0$ und $b \ne 0$.  Dann
+    gilt: $a * b \ne 0$.
   \end{folgerung}
 \end{frame}
 
@@ -359,8 +359,8 @@
   \frametitle{Bemerkungen}
   Gibt es Kurven die genügend viele Punkte haben? Ja:
   \begin{theorem}[Hasse-Schranke]
-    Sei E eine elliptische Kurve über $\F_p$. Sei $N$ die Anzahl der Punkte
-    auf E, dann gilt:
+    Sei $E$ eine elliptische Kurve über $\F_p$. Sei $N$ die Anzahl der Punkte
+    auf $E$, dann gilt:
     \begin{equation}
       \| N - p - 1 \| \le \sqrt{p}
     \end{equation}

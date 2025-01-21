@@ -3,7 +3,7 @@
 \usepackage[a4paper,margin=2cm]{geometry}
 \usepackage{parskip}
 \usepackage{graphicx}
-\usepackage{amsmath,amscd}
+\usepackage{amsmath,amscd,amssymb}
 
 \title{Elliptische Kurven: Was ist das? \\
   Und wie macht man damit Kryptographie?}
@@ -20,6 +20,9 @@
 \newcounter{thm}
 \newtheorem{folgerung}[thm]{Folgerung}
 \newtheorem{beispiel}[thm]{Beispiel}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{theorem}[thm]{Theorem}
 \begin{document}
 \maketitle
 \section{Einführung}
@@ -185,39 +188,398 @@ jede Lösung $x_0$ einen Linearfaktor aus der Gleichung herausziehen kann.
 
 Bemerkung 2: Der dritte Schnittpunkt hat ebenfalls rationale Koordinaten.
 
-Der Beweis benutzt wieder die in Bemerkung 1 erwähnte Zerlegung der Gleichung
-für die x-Koordinaten in Linearfaktoren:
+Warum? Für den dritten Schnittpunkt gelten zwei Gleichungen: Die
+Geradengleichung von der Form $y = s * x + o$ (Die genaue Formel für Konstanten
+x und c ausgedrückt durch $x_P, y_P, x_Q, y_Q$ ist vielleicht einigen noch aus der
+Schule bekannt) und die Kurvengleichung $y^2 = x^3 + ax + b$. Durch Einsetzen
+der ersten Gleichung in die zweite kann man das $y$ wegbekommen und erhält eine
+Gleichung nur in $x$, und zwar vom Grad 3 und mit rationalen Koeffizienten. Sie
+hat die Form:
 
-   $$ x^3 + a x^2 + b x + d = (x - x_1) (x - x_2) (x - x_3) $$
+\begin{equation} \label{eq:poly3}
+  x^3 + c_2 x^2 + c_1 x + c_0 = 0
+\end{equation}
 
-Ausmultiplizieren der rechten Seite gibt für den Koeffizenten $a$ bei $x^2$:
+Diese Gleichung hat aber zwei Lösungen, die uns schon bekannt sind: $x_P$ und
+$x_Q$. Also kann man die Linearfaktoren $x - x_P$ und $x - x_Q$ aus dem
+Polynom auf der linken Seite herausziehen, dann bleibt nur noch ein
+Linearfaktor übrig, also lässt sich die linke Seite von \eqref{eq:poly3}
+schreiben als:
 
-  $$ a = - (x_1 + x_2 + x_3) $$
+\begin{equation} \label{eq:lin3}
+  (x - x_P) (x - x_Q) (x - x_3)
+\end{equation}
 
-Sowohl $x_1$, $x_2$ und $a$ sind nach unseren Annahmen rational, dann muss es
-auch $x_3$ sein. $y_3$ liegt auf der Geraden, ist also von der Form
-$y = mx + g$ mit $m$ und $g$ beides rational, ist also ebenfalls rational.
-  
+mit irgendeinem unbekannten $x_3$. Es handelt sich aber weiterhin um dasselbe
+Polynom, das heißt wenn wir \eqref{eq:lin3} ausmultiplizeren und den
+Koeffizienten von $x^2$ betrachten, muss dieser gleich $c_2$ sein:
+
+\begin{equation}
+  - x_P - x_Q - x_3 = c_2
+\end{equation}
+
+Und wenn $x_P, x_Q$ und $c_2$ rational sind, ist es offenbar auch $x_3$.
+
 Damit ist etwas interessantes passiert: Wir haben aus zwei rationalen Punkten
-einen dritten konstruiert. Wir können sogar eine Formel für den dritten Punkt
-angeben:
+einen dritten konstruiert.
 
-Seien $P=(x_p, y_p)$ und $Q=(x_q, y_q)$, $P + Q = R = (x_r, y_r)$, wobei
-$s := (y_p - y_q) / (x_p - x_q)$
+Und es kommt noch besser: Nicht nur dass wir einen dritten Punkt gefunden
+haben, wir haben falls $y_3 \ne 0$ sogar noch einen vierten Punkt, nämlich den
+Punkt $(x_3, -y_3)$ schließlich ist die Kurve in Weierstraß-Normalform
+spiegelsymmetrisch zur x-Achse.
+
+Bezeichnen wir den so erhaltenen dritten Punkt, also erst dritten Schnittpunkt
+nehmen, dann Spiegeln an der x-Achse als $P \oplus Q =: R = (x_R, x_R)$,
+können wir indem wir das oben Gesagte konkret durchführen eine Formel für $R$
+bekommen:
+
+
+Seien $P=(x_P, y_P)$ und $Q=(x_Q, y_Q)$, $P \oplus Q =: R = (x_R, y_R)$, wobei
+$s := (y_P - y_Q) / (x_P - x_Q)$
 
 Dann ist:
 
 \begin{eqnarray*}
-  x_r &=& s^2 - x_p - x_q \\
-  y_r &=& - y_p + s (x_p - x_r)
+  x_R & = & s^2 - x_P - x_Q \\
+  y_R & = & - y_P + s (x_P - x_R)
 \end{eqnarray*}
 
-Und es kommt noch besser: Nicht nur dass wir einen dritten Punkt gefunden
-haben, wir haben falls $y_3 \ne 0$ sogar noch einen vierten Punkt, nämlich den
-Punkt $(x_4, y_4) = (x_3, -y_3)$, schließlich ist die Kurve in Weierstraß-Normalform
-spiegelsymmetrisch zur x-Achse. Und mit diesem vierten Punkt können wir
-dieselbe Konstruktion fortsetzen: Gerade durch $(x_1, y_1)$ und $(x_4, y_4)$
-legen, wir erhalten einen dritten Schnittpunkt, $(x_5, y_5)$, spiegeln ihn an
-der x-Achse und erhalten $(x_6, y_6)$, und so weiter.
+Und mit diesem Punkt $R$ können wir dieselbe Konstruktion fortsetzen: Gerade
+durch $(x_P, y_P)$ und $(x_R, y_R)$ legen, wir erhalten einen dritten
+Schnittpunkt, spiegeln ihn an der x-Achse und erhalten $(x_S, y_S)$ und so
+weiter.
+
+Es stellt sich heraus, dass die Operation $\oplus$ folgende Eigenschaften hat
+(Großbuchstaben bezeichnen in den folgenden Formeln Punkte auf der Kurve, also
+Koordinatenpaare (x, y):
+
+\begin{eqnarray*}
+  P \oplus Q & = & Q \oplus P \\
+  (P \oplus Q) \oplus R & = & P \oplus (Q \oplus R)
+\end{eqnarray*}
+
+Das ist den Eigenschaften der Addition schon sehr ähnlich, es bleiben nur zwei
+Probleme:
+\begin{itemize}
+\item Was tun wenn wir einen Punkt mit $y_p = 0$ zu sich selbst addieren wollen?
+\item Was wenn wir zwei Punkte mit derselben x- aber unterschiedlichen y-Werten
+  addieren wollen?
+\end{itemize}
+
+Damit eng zusammen hängt die folgende Eigenschaft, die wir für die Addition
+gerne hätten, damit sie mehr wie eine normal Addition wirkt. (Mathematisch:
+wir wollen, dass die Punkte unter der Addition eine Gruppe bilden).
+
+Es gibt einen Punkt $O$ mit der Eigenschaft:
+
+$$  P \oplus O = P $$
+
+für alle $P$, und für alle $P$ gibt es einen Punkt $P'$, so dass:
+
+$$  P \oplus P' = O $$
+
+Dieser neutrale Punkt ist der von dem es bei vielen Beschreibungen einfach
+heißt, er liege ``im Unendlichen''. Wir wollen das aber präzise fassen, und dazu
+machen wir etwas, was auch sonst nützlich ist: Wir treten aus der Ebene heraus
+und sehen uns die Kurve etwas aus der Entfernung an.
+
+\section{Projektive Ebene}
+
+Diesmal beginnen wir mit der arithmetischen Formulierung, da diese im
+Vergleich zur geometrischen Betrachtung etwas einfacher zu beschreiben ist:
+
+Wir nehmen zu den Kurvenkoordinaten x und y im zweidimensionalen Raum die
+Koordinate z im dreidimensionalen Raum dazu, allerdings mit der
+Zusatzbedingung, dass nicht alle drei Werte gleichzeitig Null sein dürfen.
+Warum? Kommt später, wenn wir die geometrische Sichtweise ansehen. Erstmal
+einfach so hinnehmen.
+
+Die Gleichung der elliptischen Kurve wird nun homogenisiert: Es wird an jeden
+Summand eine Potenz von $z$ dranmultipliziert, so dass die Summe der
+Exponenten überall drei wird. Die Zahlen $a$ und $b$ gelten weiterhin als
+Konstanten, werden also bei der Summe der Exponenten nicht mitgezählt. Unsere
+Weierstraß Normalform lautet also nun:
+
+$$ y^2z = x^3 + a xz^2 + b z^3 $$
+
+Damit haben wir jetzt natürlich viel mehr Lösungen als vorher, das machen wir
+(fast, und das ist der eigentliche Trick dabei) wieder rückgängig, indem wir
+zwei verschiedene Lösungen als äquivalent betrachten, wenn sie sich nur durch
+einen konstanten Faktor unterscheiden.
+
+Das macht natürlich nur Sinn, wenn sich die Eigenschaft ``liegt auf der Kurve''
+bei zueinander äquivalenten Punkten nicht ändert, und in der Tat gilt:
+
+\begin{eqnarray*}
+    & & (x_1, y_1, z_1) \in E \\
+    & \Rightarrow &
+    y_1^2 z_1 = x_1^3 + a x_1 z_1^2 + b z_1^3 \\
+    & \Rightarrow &
+    \lambda^3 y_1^2 z_1
+    = \lambda^3 x_1^3 + \lambda^3 a x_1 z_1^2 + \lambda^3 b z_1^3 \\
+    & \Rightarrow &
+    (\lambda y_1)^2 \lambda z_1 = (\lambda x_1)^3
+    + a \lambda x_1 (\lambda z_1)^2 + b (\lambda z_1)^3 \\
+    & \Rightarrow &
+    (y_2)^2 z_2 = (x_2)^3
+    + a x_2 (z_2)^2 + b (z_2)^3 \\
+    & \Rightarrow & (x_2, y_2, z_2) \in E
+\end{eqnarray*}
+
+Sei also nun $(x, y, z) \in E$, damit gilt:
+
+\begin{equation} \label{eq:weipro}
+  y^2z = x^3 + a xz^2 + b z^3
+\end{equation}
+Wenn $z\ne 0$, können wir alle Koordinaten durch $z$ teilen, und erhalten
+einen äquivalenten Punkt $(x', y', 1)$ und es gilt:
+
+$$ {y'}^2 = {x'}^3 + ax' + b$$
+
+Die Punkte mit $z \ne 0$ entsprechen also genau den Punkten in der
+zweidimensionalen Kurve.
+
+Wenn $z = 0$, dann wird Gleichung \eqref{eq:weipro} zu $0 = x^3$, also
+$x = 0$, und dann muss $y \ne 0$ sein, und es ist egal welches $y$ man nimmt,
+sie sind alle äquivalent. Dieser ist dann der Punkt im Unendlichen.
+
+Für die Addition oben fehlten uns noch die Fälle $x_p = x_q$ bzw. $P=Q$ und
+$y=0$. Die können wir nun festlegen:
+
+  \begin{definition}
+    Seien $P = (x_P, y_P)$ und $Q =(x_Q, y_Q)$ zwei verschiedene Punkte auf der
+    elliptischen Kurve $E$ mit $x_P = x_Q$ (dann muss $y_Q = -y_P$),
+    oder sei $P = Q$ und $y_P = 0$.
+    Sei $\mathcal{O}$ der Punkt im Unendlichen. Wir definieren:
+
+    $$ P \oplus Q = \mathcal{O} $$
+  \end{definition}
+
+Zur praktischen Berechnung spielt der
+Punkt im Unendlichen also keine wirkliche Rolle, er ist einfach ein weiterer
+Spezialfall der Regeln.
+
+
+Was haben wir geometrisch gesehen gemacht? Wir haben einen Punkt in der Ebene
+durch eine Gerade durch den Nullpunkt ersetzt (Hier kommt die Bedingung dass
+mindestens eine Koordinate $\ne 0$ sein muss ins Spiel, sonst bekommt man aus
+einem Punkt nicht eindeutig eine Gerade durch den Nullpunkt).  Eine Gerade
+wird zu einer Ebene durch den Ursprung. Unsere Kurve wird zu einem Bündel von
+Geraden, die sich wie ein Vorhang bauscht.
+
+So ein Bündel ist etwas schwer vorzustellen, ein wenig übersichtlicher wird
+es, wenn wir vom jedem Bündel nur die zwei Punkte betrachten, die auf einer
+Kugel um den Nullpunk liegen (zwei Antipoden). Damit wird unsere Kurve zu
+einer geschlossenen Kurve auf der Kugel, nur das sie quasi verdoppelt
+wurde. Dieses Gebilde ist unsere eigentliche projektive Kurve.
+
+Wenn man nun eine punktförmige Lichtquelle in den Nullpunkt stellt, und eine
+Leinwand dort ausbreitet, wo die Ebene $z =1$ ist, dann ist die ursprüngliche
+ebene elliptische Kurve die Projektion der Kugelkurve auf die Ebene.
+(Daher der Name ``projektive Ebene''). Die Projektion kann aber genau den
+einen Punkt im Unendlichen gerade nicht abbilden.
+
+Was haben wir bis jetzt?
+
+\begin{itemize}
+\item Eine Kurve, genauer eine Menge von Punkten $(x, y)$, die die Gleichung in
+  Weierstraß-Form erfüllen.
+\item Eine Operation $\oplus$ auf der Kurve, also eine Formel, die aus zwei Punkten
+  $P = (x_P, y_P), und Q = (x_Q, y_Q)$ einen dritten Punkt
+  $R = (x_R, y_R) = P \oplus Q$ macht.
+\end{itemize}
+Achtung: Diese Addition von Punkten hat mit der aus der Schule bekannten
+Addition von zweidimensionalen Vektoren in der Ebene nichts zu tun,
+insbesondere ist ganz offensichtlich
+$(x_P, y_P) \oplus (x_Q, y_Q) \ne (x_P + x_Q, y_P + y_Q)$
+
+\section{Endliche Körper}
+
+Jetzt möchten wir konkrete Berechnungen vornehmen und zwar auf Computern,
+die nicht beliebig genau rechnen können. Zunächst stellen wir fest, das sowohl
+bei der Definition elliptischer Kurven als auch bei den Formeln für die
+Addition von Punkten nur die normalen Grundrechenarten Addition, Subtraktion,
+Multiplikation und Division eingegangen sind, sowie die bekannten
+Rechenregeln. So etwas nennen Mathematiker einen `Körper` (engl. `field`), und
+definieren das noch etwas genauer, aber die Definition wäre in diesem Rahmen
+etwas zu technisch.
+
+Bekannte Beispiele für Körper wären die Menge der reellen
+Zahlen $\R$, die Menge der rationalen Zahlen $\Q$ oder die Menger der
+komplexen Zahlen.
+
+Eine Folgerung aus der genauen Definiton benötigen wir aber im Folgenden, das
+ist eine weitere `bekannte` Rechenregel:
+
+  \begin{folgerung}
+    Sei K ein Körper, seien $a, b \in K$ mit $a \ne 0$ und $b \ne 0$.  Dann
+    gilt: $a * b \ne 0$.
+  \end{folgerung}
+
+Gibt es noch andere Körper, insbesondere welche, in denen wir ohne
+Genauigkeitsverlust rechnen können? Ja, die gibt es, es handelt sich um die
+\textit{endlichen Körper}.
+
+Die wichtigste Zutat für diese ist bereits aus der Grundschule bekannt: Die
+Division mit Rest. Dazu legen wir eine ganze Zahl $N$ fest und sagen dann,
+von einer beliebigen Zahl $a$ interessiert uns eigentlich nur der Rest beim
+Teilen durch $N$. Anders, und mathematisch etwas präziser ausgedrückt: Wir
+teilen die gesamte Menge der ganzen Zahlen $\Z$ in $N$ Klassen ein: Alle Zahlen
+die beim Teilen durch $N$ denselben Rest ergeben, sind in einer Klasse.
+
+  \begin{definition}
+    Sei $N \in \N, N > 1$. Zwei ganze Zahlen $a$ und $b$ heißen
+    \emph{äquivalent modulo N}, geschrieben $a \equiv b \pmod N$, wenn
+    $$ \exists m \in \Z: a-b = mN $$
+  \end{definition}
+
+Wir definieren dann die Addition bzw. Multiplikation zweier Klassen, indem wir
+aus den beiden Klassen jeweils irgendwelche Zahlen wählen, diese addieren
+bzw. multiplizieren, und die Klasse als Ergebnis nehmen, in der die Summe
+bzw. das Produkt liegt.
+
+Aber halt: ``Irgendwelche''? Dann kommt doch beim Addieren bzw. Multiplizieren
+immer was anderes raus, je nachdem welche Zahlen aus der Klasse wir
+wählen. Stimmt, es kommen je nachdem verschiedene Zahlen heraus, aber die
+liegen alle in derselben Klasse. Das ist der Inhalt des folgenden Lemmas:
+
+\begin{lemma}
+    Sei $N \in \N, N > 1$, seien $a_1, a_2, b_1, b_2 \in \Z$,
+    mit $a_1 \equiv a_2 \pmod N$ und $b_1 \equiv b_2 \pmod N$  dann gilt:
+    \begin{equation}
+      \begin{split}
+        \label{op:mod}
+        a_1 + b_1 & \equiv  a_2 + b_2 \pmod N \\
+        a_1 \cdot b_1 & \equiv  a_2 \cdot b_2 \pmod N
+      \end{split}
+    \end{equation}
+\end{lemma}
+
+Können wir $N$ beliebig wählen? Nehmen wir an $N$ ist zusammengesetzt, also
+$N = n_1 n_2$ mit $n_1, n_2 < N$, Dann ist $n_1 n_2 \equiv 0$, im Widerspruch zur
+Körpereigenschaft oben.
+
+Also muss $N$ notwendigerweise prim sein. Diese Bedingung ist jedoch auch
+schon hinreichend.
+
+Äquivalenzklassen sind schön für die Theorie, aber Wie rechnen wir nun
+praktisch?
+
+Wir beschränken uns auf die Zahlen $0..p-1$.
+
+Wenn die Ausgangszahlen nicht in diesem Bereich liegen sollten, wenden wir
+Division mit Rest durch $p$ an. Addition, Subtraktion und Multiplikation von
+ganzen Zahlen gibt wieder ganze Zahlen, und durch Division mit Rest kommen wir
+wieder in das Intervall $0..p-1$.
+
+Addition und Multiplikation geht normal, nur dass wir das
+Ergebis wieder durch Division mit Rest auf den Bereich $0..p-1$ bringen.
+
+Wenn bei der Division eine ganze Zahl rauskommt, können wir die Division
+ebenfalls normal rechnen.
+
+Aber was wenn nicht?
+
+Was ist eigentlich $\frac a b (mod p) = q$? Es ist die Zahl $q$ aus $0..p-1$, für
+die $q*b = a (mod p)$ oder:  $a - q*b = m p$ für $m \in \Z$. Offenbar reicht
+uns ein Verfahren um $\frac 1 b$ zu bestimmen. Am besten lässt sich das mit
+einem Beispiel erläutern: Wir legen $p=37$ fest, und wollen das multiplikative
+Inverse von 10 bestimmen, also zwei Zahlen $q$ und $m$ so dass:
+
+$$  m * 37 + q * 10 = 1 $$
+
+Das m selbst brauchen wir nicht, aber wenn es bei dem Verfahren mit
+herausfällt, ist das zur Kontrolle auch ok. Woran wir eigentlich interessiert
+sind, ist das $q$.
+
+Das sieht jetzt ein wenig wie ein Zaubertrick aus. Wir fangen mit etwas völlig
+Offensichtlichen an, was uns der Lösung scheinbar keinen Schritt weiterbringt,
+Wir schreiben zwei Anfangsgleichungen hin:
+
+\begin{eqnarray}
+    1 * 37 + 0 * 10 = 37  \label{ex:1} \\
+    0 * 37 + 1 * 10 = 10  \label{ex:2}
+\end{eqnarray}
+
+Nun kombinieren wir diese Gleichungen auf die richtige Art und Weise, so dass
+die Zahl auf der linken Seite immer kleiner wird. Auf der rechten Seite stehen
+37 und 10, wir teilen 37 durch 10 mit Rest und erhalten: $37 = 3*10 + 7$,
+bzw. $37 - 3 * 10 = 7$, wir multiplizieren also Gleichung \eqref{ex:2} mit -3 und
+zählen Gleichung \eqref{ex:1} dazu:
+
+\begin{eqnarray}
+    1 *37 + (-3) * 10 = 7 \label{ex:3}
+\end{eqnarray}
+
+Jetzt kombinieren wir Gleichung \eqref{ex:2} und \eqref{ex:3}.
+Die Zahlen auf der rechten Seite
+sind 10 und 7. Wir teilen 10 mit Rest durch 7 und bekommen: $10 = 1 * 7 + 3$
+also $1 * 10 - 1 * 7 = 3$, heißt wir müssen Gleichung \eqref{ex:3} mit -1
+multiplizieren und von Gleichung \eqref{ex:2} abziehen:
+
+\begin{eqnarray}
+    (-1) * 37 + 4 * 10 = 3 \label{ex:4}
+\end{eqnarray}
+
+Die Zahlen auf den rechten Seiten sind 7 und 3, wir teilen dann 7 durch 3 mit
+Rest und bekommen: $7 = 2*3 - 1$ bzw. $7 - 2*3 = 1$, also nehmen wir Gleichung
+\eqref{ex:4} mit $(-2)$ mal und zählen Gleichung \eqref{ex:3} dazu:
+
+\begin{eqnarray}
+    (-3) * 37 + (-11) * 10 = 1
+\end{eqnarray}
+
+Damit ist das multiplikative Inverse von 10 mod 37 gleich -11, bzw. $-11 + 37
+= 26$
+
+Das gesamte Verfahren ist letztlich der euklidische Algorithmus zum Bestimmen
+des kleinsten gemeinsament Teilers der Zahlen 37 und 10, plus ein wenig
+Buchhaltung. Weil 10 und 37 teilerfremd sind (sonst wäre 37 nicht prim), muss
+die Folge der Zahlen auf der rechten Seite irgendwann mit 1 enden.
+
+Wenn man beim Teilen mit Rest auch negative Rest erlaubt, statt wie oben auf
+positiven zu bestehen, kann man sehen, dass die Folge der Zahlen auf der
+rechten Seite immer mindestens um den Faktor 2 kleiner wird, das Verfahren ist
+also sehr effizient.
+
+Außerdem braucht man sich nie mehr als die Koeffizienten der letzten zwei
+Gleichungen zu merken, das Verfahren braucht also konstanten Speicherplatz.
+\pagebreak
+
+
+Über endlichen Körpern sehen unsere elliptischen Kurven nun wenig intuitiv
+aus.
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=8cm]{finplot.png}
+  \caption{Elliptische Kurve über $\F_{37}$}
+  
+\end{figure}
+
+Funktioniert der Übergang zu endlichen Körpern nun überhaupt? Will heißen:
+Gibt es überhaupt genügend Punkte auf diesen Kurven? Die Antwort hat Helmut
+Hasse ($\strut^*$25.8.1898  $\dagger$26.12.1979) 1933 gegeben:
+
+\begin{theorem}[Hasse-Schranke]
+    Sei $E$ eine elliptische Kurve über $\F_p$. Sei $N$ die Anzahl der Punkte
+    auf $E$, dann gilt:
+    \begin{equation}
+      \| N - p - 1 \| \le \sqrt{p}
+    \end{equation}
+\end{theorem}
+
+Zu jedem $x$-Wert gibt es entweder keinen oder zwei Punkte auf der Kurve. Die Anzahl
+der möglichen $x$-Werte ist $p$, Für große $p$ (und solche interessieren uns
+ja für die Kryptographie) ist die Wurzel im Vergleich zu $p$ eher klein,
+der Satz sagt also, dass auf der Kurve etwa halb so viele Punkte liegen wie
+maximal möglich wäre.
+
+Für elliptische Kurven über endlichen Körpern gibt es sogar ein effizientes
+Verfahren, den Schoof-Algorithmus, benannt nach René Schoof ($\strut^*$1955-05-08),
+die Anzahl der Punkte zu bestimmen.
+
+Praktisch werden in standardisierten Verfahren im Wesentlichen vier Kurven
+benutzt, jeweils mit verschiedenen endlichen Köpern. Die Primzahlen haben
+dabei 76, 117 und 156 Dezimalstellen.
 
 \end{document}
