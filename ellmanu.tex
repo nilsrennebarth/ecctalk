@@ -230,7 +230,7 @@ spiegelsymmetrisch zur x-Achse.
 
 Bezeichnen wir den so erhaltenen dritten Punkt, also erst dritten Schnittpunkt
 nehmen, dann Spiegeln an der x-Achse als $P \oplus Q =: R = (x_R, x_R)$,
-können wir indem wir das oben Gesagte konkret durchführen eine Formel für $R$
+können wir, indem wir das oben Gesagte konkret durchführen, eine Formel für $R$
 bekommen:
 
 
@@ -267,16 +267,16 @@ Probleme:
 \end{itemize}
 
 Damit eng zusammen hängt die folgende Eigenschaft, die wir für die Addition
-gerne hätten, damit sie mehr wie eine normal Addition wirkt. (Mathematisch:
+gerne hätten, damit sie mehr wie eine normale Addition wirkt. (Mathematisch:
 wir wollen, dass die Punkte unter der Addition eine Gruppe bilden).
 
-Es gibt einen Punkt $O$ mit der Eigenschaft:
+Es gibt einen Punkt $\mathcal{O}$ mit der Eigenschaft:
 
-$$  P \oplus O = P $$
+$$  P \oplus \mathcal{O} = P $$
 
 für alle $P$, und für alle $P$ gibt es einen Punkt $P'$, so dass:
 
-$$  P \oplus P' = O $$
+$$  P \oplus P' = \mathcal{O} $$
 
 Dieser neutrale Punkt ist der von dem es bei vielen Beschreibungen einfach
 heißt, er liege ``im Unendlichen''. Wir wollen das aber präzise fassen, und dazu
@@ -308,10 +308,11 @@ zwei verschiedene Lösungen als äquivalent betrachten, wenn sie sich nur durch
 einen konstanten Faktor unterscheiden.
 
 Das macht natürlich nur Sinn, wenn sich die Eigenschaft ``liegt auf der Kurve''
-bei zueinander äquivalenten Punkten nicht ändert, und in der Tat gilt:
-
+bei zueinander äquivalenten Punkten nicht ändert, und in der Tat,
+sei $(x_1, y_1, z_1) \in E$, und
+$(x_2, y_2, z_2) = (\lambda x_1, \lambda y_1, \lambda z_1)$ ein äquivalenter
+Punkt.
 \begin{eqnarray*}
-    & & (x_1, y_1, z_1) \in E \\
     & \Rightarrow &
     y_1^2 z_1 = x_1^3 + a x_1 z_1^2 + b z_1^3 \\
     & \Rightarrow &
@@ -325,19 +326,15 @@ bei zueinander äquivalenten Punkten nicht ändert, und in der Tat gilt:
     + a x_2 (z_2)^2 + b (z_2)^3 \\
     & \Rightarrow & (x_2, y_2, z_2) \in E
 \end{eqnarray*}
-
 Sei also nun $(x, y, z) \in E$, damit gilt:
-
 \begin{equation} \label{eq:weipro}
   y^2z = x^3 + a xz^2 + b z^3
 \end{equation}
 Wenn $z\ne 0$, können wir alle Koordinaten durch $z$ teilen, und erhalten
 einen äquivalenten Punkt $(x', y', 1)$ und es gilt:
-
 $$ {y'}^2 = {x'}^3 + ax' + b$$
-
-Die Punkte mit $z \ne 0$ entsprechen also genau den Punkten in der
-zweidimensionalen Kurve.
+Die Punkte mit $z \ne 0$ entsprechen also genau den Punkten der ebenen
+elliptischen Kurve.
 
 Wenn $z = 0$, dann wird Gleichung \eqref{eq:weipro} zu $0 = x^3$, also
 $x = 0$, und dann muss $y \ne 0$ sein, und es ist egal welches $y$ man nimmt,
@@ -480,8 +477,8 @@ ebenfalls normal rechnen.
 
 Aber was wenn nicht?
 
-Was ist eigentlich $\frac a b (mod p) = q$? Es ist die Zahl $q$ aus $0..p-1$, für
-die $q*b = a (mod p)$ oder:  $a - q*b = m p$ für $m \in \Z$. Offenbar reicht
+Was ist eigentlich $\frac a b \pmod p = q$? Es ist die Zahl $q$ aus $0..p-1$, für
+die $q*b = a \pmod p$ oder:  $a - q*b = m p$ für $m \in \Z$. Offenbar reicht
 uns ein Verfahren um $\frac 1 b$ zu bestimmen. Am besten lässt sich das mit
 einem Beispiel erläutern: Wir legen $p=37$ fest, und wollen das multiplikative
 Inverse von 10 bestimmen, also zwei Zahlen $q$ und $m$ so dass:
@@ -526,7 +523,7 @@ Rest und bekommen: $7 = 2*3 - 1$ bzw. $7 - 2*3 = 1$, also nehmen wir Gleichung
 \eqref{ex:4} mit $(-2)$ mal und zählen Gleichung \eqref{ex:3} dazu:
 
 \begin{eqnarray}
-    (-3) * 37 + (-11) * 10 = 1
+    3 * 37 + (-11) * 10 = 1
 \end{eqnarray}
 
 Damit ist das multiplikative Inverse von 10 mod 37 gleich -11, bzw. $-11 + 37
@@ -553,7 +550,6 @@ aus.
   \centering
   \includegraphics[height=8cm]{finplot.png}
   \caption{Elliptische Kurve über $\F_{37}$}
-  
 \end{figure}
 
 Funktioniert der Übergang zu endlichen Körpern nun überhaupt? Will heißen:
