@@ -53,7 +53,7 @@ Genauer gesagt sind dies elliptische Kurven in der affinen rellen Ebene.
 \begin{figure}[h]
   \includegraphics[height=5cm]{ec1-m2-p2.png}
   \includegraphics[height=5cm]{ec2-m2-p1.png}
-  \includegraphics[height=5cm]{ec2-m2-p1.png}
+  \includegraphics[height=5cm]{ec4-p0-p4.png}
   
   \caption{Elliptische Kurven}
   \label{fig:ecurves}
@@ -268,7 +268,7 @@ Probleme:
 
 Damit eng zusammen hängt die folgende Eigenschaft, die wir für die Addition
 gerne hätten, damit sie mehr wie eine normale Addition wirkt. (Mathematisch:
-wir wollen, dass die Punkte unter der Addition eine Gruppe bilden).
+wir wollen, dass die Punkte unter der Addition eine Gruppe bilden):
 
 Es gibt einen Punkt $\mathcal{O}$ mit der Eigenschaft:
 
@@ -462,22 +462,23 @@ schon hinreichend.
 Äquivalenzklassen sind schön für die Theorie, aber Wie rechnen wir nun
 praktisch?
 
-Wir beschränken uns auf die Zahlen $0..p-1$.
+Wir beschränken uns auf die Zahlen $0 \ldots p-1$.
 
 Wenn die Ausgangszahlen nicht in diesem Bereich liegen sollten, wenden wir
 Division mit Rest durch $p$ an. Addition, Subtraktion und Multiplikation von
 ganzen Zahlen gibt wieder ganze Zahlen, und durch Division mit Rest kommen wir
-wieder in das Intervall $0..p-1$.
+wieder in das Intervall $0 \ldots p-1$.
 
 Addition und Multiplikation geht normal, nur dass wir das
-Ergebis wieder durch Division mit Rest auf den Bereich $0..p-1$ bringen.
+Ergebis wieder durch Division mit Rest auf den Bereich $0 \ldots p-1$ bringen.
 
 Wenn bei der Division eine ganze Zahl rauskommt, können wir die Division
 ebenfalls normal rechnen.
 
 Aber was wenn nicht?
 
-Was ist eigentlich $\frac a b \pmod p = q$? Es ist die Zahl $q$ aus $0..p-1$, für
+Was ist eigentlich $\frac a b \pmod p = q$? Es ist die Zahl $q$ aus
+$0 \ldots p-1$, für
 die $q*b = a \pmod p$ oder:  $a - q*b = m p$ für $m \in \Z$. Offenbar reicht
 uns ein Verfahren um $\frac 1 b$ zu bestimmen. Am besten lässt sich das mit
 einem Beispiel erläutern: Wir legen $p=37$ fest, und wollen das multiplikative
@@ -485,7 +486,7 @@ Inverse von 10 bestimmen, also zwei Zahlen $q$ und $m$ so dass:
 
 $$  m * 37 + q * 10 = 1 $$
 
-Das m selbst brauchen wir nicht, aber wenn es bei dem Verfahren mit
+Das $m$ selbst brauchen wir nicht, aber wenn es bei dem Verfahren mit
 herausfällt, ist das zur Kontrolle auch ok. Woran wir eigentlich interessiert
 sind, ist das $q$.
 
@@ -589,14 +590,15 @@ kommt nun die Kryptographie her?
 Diffie-Hellman ist kein Verschlüsselungsverfahren, und auch kein
 Signaturverfahren, sondern ein Schlüsselaustauschverfahren.  Damit können sich
 zwei Leute - üblicherweise Alice und Bob genannt - auf ein gemeinsames
-Geheimnis einigen, obwohl sie dabei nur einen öffentlichen Kanal kommunizieren
+Geheimnis einigen, obwohl sie dabei nur über einen öffentlichen Kanal kommunizieren,
 auf dem die Lauscherin Eve lauscht.
 
 Eine Möglichkeit, so ein gemeinsames Geheimnis zu nutzen wäre zum
-Beispiel es als Key für ein konventionellles symmetrisches
+Beispiel, es als Key für ein konventionellles symmetrisches
 Verschlüsselungsverfahen zu nutzen (AES).
 
-Benannt nach seinen Erfindern Whitfield Diffie ($\strut^*$ 1944-06-05) und Martin
+Benannt ist das Verfahren nach seinen Erfindern Whitfield Diffie
+($\strut^*$ 1944-06-05) und Martin
 Hellman ($\strut^**$1945-10-02), nach einem generellen Konzept von Ralph
 Merkle ($\strut^*$1952-02-02). Das Verfahren wurde 1976 publiziert, basierte
 damals jedoch nicht auf elliptischen Kurven.
@@ -612,7 +614,7 @@ unseres endlichen Körpers. Diese Informationen sind öffentlich
 und insbesondere auch E bekannt.
 
 Alice wählt nun ihr Geheims $s_A$, eine lange Dezimalzahl. Sie berechnet
-daraus $P + \ldots + P$, $s_A$ - mal.
+daraus $P + \ldots + P$, $s_A$ -mal.
 
 (Aufmerksame Leute werden sich fragen wie das mit so großen Zahlen
 gehen soll. Antwort: Wiederholtes Verdoppeln und Addieren statt immer wieder
@@ -622,7 +624,7 @@ Dann übermittelt Alice das Ergebnis $P_A$ - ein Punkt auf der Kurve - an
 Bob.
 
 Bob macht auf seiner Seite währenddessen dasselbe, er wählt sein
-eigenes Geheimnis $s_B$, und berechnet $P + \ldots + P$, $s_B$ mal. Dann
+eigenes Geheimnis $s_B$, und berechnet $P + \ldots + P$, $s_B$ -mal. Dann
 übermittelt er das Ergebnis $P_B$ an Alice.
 
 Nun kennt Alice $s_A$ und $P_B$, Bob dagegen kennt $s_B$ und $P_A$.
@@ -644,7 +646,7 @@ Bob berechnet $P_A + \ldots + P_A$ ($s_B$ - mal) und erhält $P_S'$. Nun ist:
 
 Damit sind $P_S$ und $P_S'$ derselbe Punkt, und somit ein gemeinsames
 Geheimnis. Eve dagegen kennt nur $P_A$ und $P_B$, bekommt damit aber weder
-$s_A$ noch $S_B$ heraus. (Außer sie hat einen funktionierenden
+$s_A$ noch $s_B$ heraus. (Außer sie hat einen funktionierenden
 Quantencomputer, aber das ist eine andere Geschichte).
 
 Was hatten wir:
