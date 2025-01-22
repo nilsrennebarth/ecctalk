@@ -578,4 +578,143 @@ Praktisch werden in standardisierten Verfahren im Wesentlichen vier Kurven
 benutzt, jeweils mit verschiedenen endlichen Köpern. Die Primzahlen haben
 dabei 76, 117 und 156 Dezimalstellen.
 
+
+
+\section{EC Diffie-Hellmann}
+
+Jetzt haben wir alle Zutaten beisammen: Wir haben elliptische Kurven, und
+Punkte darauf, mit denen wir (bzw. die Computer) effizient rechnen können, wo
+kommt nun die Kryptographie her?
+
+Diffie-Hellman ist kein Verschlüsselungsverfahren, und auch kein
+Signaturverfahren, sondern ein Schlüsselaustauschverfahren.  Damit können sich
+zwei Leute - üblicherweise Alice und Bob genannt - auf ein gemeinsames
+Geheimnis einigen, obwohl sie dabei nur einen öffentlichen Kanal kommunizieren
+auf dem die Lauscherin Eve lauscht.
+
+Eine Möglichkeit, so ein gemeinsames Geheimnis zu nutzen wäre zum
+Beispiel es als Key für ein konventionellles symmetrisches
+Verschlüsselungsverfahen zu nutzen (AES).
+
+Benannt nach seinen Erfindern Whitfield Diffie ($\strut^*$ 1944-06-05) und Martin
+Hellman ($\strut^**$1945-10-02), nach einem generellen Konzept von Ralph
+Merkle ($\strut^*$1952-02-02). Das Verfahren wurde 1976 publiziert, basierte
+damals jedoch nicht auf elliptischen Kurven.
+
+Vorher haben A und B eine elliptische Kurve $E$ zusammen mit einem
+endlichen Körper $K$ festgelegt, und zusätzlich noch einen Punkt $P$. $P$
+ist dabei so gewählt, dass die Sequenz $P$, $P+P$, $P+P+P$, $\ldots$
+\emph{sehr lang}
+braucht, um sich zu wiederholen. (Anmerkung: Wir wollen zusätzlich, dass die
+Anzahl der Additionen bis sich das Ergebnis wiederholt eine Primzahl ist.) Mit
+sehr lang meinen wir eine Zahl die in etwa so viele Stellen hat wie die Primzahl
+unseres endlichen Körpers. Diese Informationen sind öffentlich
+und insbesondere auch E bekannt.
+
+Alice wählt nun ihr Geheims $s_A$, eine lange Dezimalzahl. Sie berechnet
+daraus $P + \ldots + P$, $s_A$ - mal.
+
+(Aufmerksame Leute werden sich fragen wie das mit so großen Zahlen
+gehen soll. Antwort: Wiederholtes Verdoppeln und Addieren statt immer wieder
+eins drauf zu addieren)
+
+Dann übermittelt Alice das Ergebnis $P_A$ - ein Punkt auf der Kurve - an
+Bob.
+
+Bob macht auf seiner Seite währenddessen dasselbe, er wählt sein
+eigenes Geheimnis $s_B$, und berechnet $P + \ldots + P$, $s_B$ mal. Dann
+übermittelt er das Ergebnis $P_B$ an Alice.
+
+Nun kennt Alice $s_A$ und $P_B$, Bob dagegen kennt $s_B$ und $P_A$.
+
+Alice berechnet nun $P_B + \ldots + P_B$ ($s_A$ - mal) und erhält $P_S$ (ein
+Punkt auf der Kurve).
+
+Bob berechnet $P_A + \ldots + P_A$ ($s_B$ - mal) und erhält $P_S'$. Nun ist:
+
+\begin{eqnarray*}
+  P_S &=& \overbrace{P_B + \ldots + P_B}^{s_A-mal} =
+  \overbrace{\overbrace{P + \ldots P}^{s_B-mal} + \ldots +
+  \overbrace{P + \ldots P}^{s_B-mal}}^{s_A-mal} = \\
+  &=& \overbrace{P + \ldots P}^{s_Bs_A-mal} =
+  \overbrace{\overbrace{P + \ldots P}^{s_A-mal} + \ldots +
+  \overbrace{P + \ldots P}^{s_A-mal}}^{s_B-mal} \\
+  &=& \overbrace{P_A + \ldots P_A}^{s_B-mal} = P_S'
+\end{eqnarray*}
+
+Damit sind $P_S$ und $P_S'$ derselbe Punkt, und somit ein gemeinsames
+Geheimnis. Eve dagegen kennt nur $P_A$ und $P_B$, bekommt damit aber weder
+$s_A$ noch $S_B$ heraus. (Außer sie hat einen funktionierenden
+Quantencomputer, aber das ist eine andere Geschichte).
+
+Was hatten wir:
+
+\begin{itemize}
+\item Ein paar Kurven so in Fisch oder Knubbelform
+\item Eine geometrische Operation $\oplus$ darauf, die aus zwei Punkten einen
+  dritten macht
+\item Ein Ausflug in die dritte Dimension, der zu den Kurven einen
+  schwurbelfreien Punkt im Unendlichen hinzufügt. Nun ist $\oplus$ eine
+  Addition.
+\item Ein Ausflug in endliche Körper, danach kann ein Computer mit den
+  Kurven rechnen, und zwar ohne zu ungenau zu werden oder zuviel
+  Speicher zu brauchen.
+\item Eine Methode wie man sich mit diesen Punkten auf der Kurve auf ein
+  gemeinsames Geheimnis einigt das kein anderer kennt.
+\end{itemize}
+
+\section{Äquivalenzklassen}
+Das mit den Äquivalenzklassen ist ein sehr wichtiges und häufig verwendetes
+Konzept in der Mathematik um neue Objekte mit neuen Eigenschaften zu
+erzeugen. Uns ist es in zwei Ausprägungen begegnet:
+
+\begin{enumerate}
+\item Punkte im 3-dimensionalen Raum ohne Nullpunkt. Alle Punkte die auf derselben
+   Geraden durch den Ursprung liegen sind äquivalent zueinander.
+\item Ganze Zahlen, und eine Primzahl $p$ gegeben. Alle Zahlen, die denselben Rest
+   beim Teilen durch $p$ besitzen sind äquivalent.
+\end{enumerate}
+
+Dann haben wir aus jeder Äquivalenzklasse Repräsentanten gewählt:
+
+\begin{enumerate}
+\item Punktepaare auf der Einheitskugel
+\item Zahlen $0 \ldots p-1$
+\end{enumerate}
+
+Dann kann man die in der Ausgangsmenge definierten Operationen auf die neuen
+Objekte übertragen, indem man sie auf den Repräsentanten wie gewohnt
+durchführt, und dann als Ergebnis die Äquivalenzklasse nimmt, in der das
+Ergebnis liegt:
+
+\begin{enumerate}
+\item Gerade durch zwei Punkte, nimm zwei beliebige Repräsentanten,
+zeichne eine Gerade durch beide, fasse alle Punkte auf der Geraden als
+Repräsentanten auf, Die Gesamtmenge der Punkte ist dann eine Ebene, und die
+ist unabhängig von der Wahl der Repräsentaten. Diese Menge von Klassen ist im
+projektiven Raum die Gerade durch zwei Punkte.
+\item Nimm zwei beliebige Repräsentanten, bilde die Summe, definiere das
+Ergebnis als die Summe der Äquivalenzklassen. Dasselbe mit dem Produkt.
+\end{enumerate}
+
+Die neuen Objekte können auch ganz neue Eigenschaften haben - das macht sie ja
+gerade so interessant:
+
+\begin{enumerate}
+\item Geraden werden in der projektiven Ebene zu Großkreisen auf der
+  Kugeloberfläche. Damit schneiden sich zwei Geraden genau in zwei Punkten,
+  die liegen aber genau gegenüber (Antipoden) sind also äquivalent. Mit
+  anderen Worten: Zwei Geraden in der projektiven Ebene schneiden sich genau
+  in einem Punkt ($\Rightarrow$ nicht-euklidische Geometrie).
+\item Modulo 13 gilt: $ 5 * 5 = 25 = 12 = -1 \pmod{13} $
+  Es gibt also in den Zahlen mod 13 eine \emph{Wurzel aus -1}
+\end{enumerate}
+
+Aber Vorsicht: Wir müssen darauf achten, dass das Endergebnis \emph{wohldefiniert}
+ist: Wenn man zwei andere Repräsentanten nimmt, muss dasselbe herauskommen,
+wobei dasselbe heißt: die beiden verschiedenen Ergebnisse liegen in derselben
+Klasse. Bei Multiplikation und Addition funktioniert das. Beim Wurzelziehen
+beispielsweise geht es schief: Wir nehmen zwei Zahlen, 9 und 16, beide
+äquivalent $\pmod 7$. $\sqrt 9 = 3$, $\sqrt{16} = 4$, aber die Wurzeln
+3 und 4 liegen in verschienenen Äquivalenzklassen $\pmod 7$.
 \end{document}

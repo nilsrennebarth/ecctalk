@@ -458,10 +458,11 @@ Jetzt haben wir alle Zutaten beisammen: Wir haben elliptische Kurven, und
 Punkte darauf, mit denen wir (bzw. die Computer) effizient rechnen können, wo
 kommt jetzt die Kryptographie her?
 
-Diffie-Hellman ist kein Verschlüsselungsverfahren,
-und auch kein Signaturverfahren, sondern es erlaubt es zwei Leuten
-Alice und Bob über einen öffentlichen Kanal mit Lauscher E sich auf
-ein gemeinsames Geheimnis zu einigen, das E nicht herausbekommen kann.
+Diffie-Hellman ist kein Verschlüsselungsverfahren, und auch kein
+Signaturverfahren, sondern ein Schlüsselaustauschverfahren.  Damit können sich
+zwei Leute - üblicherweise Alice und Bob genannt - auf ein gemeinsames
+Geheimnis einigen, obwohl sie dabei nur einen öffentlichen Kanal kommunizieren
+auf dem eine Lauscherin Eve lauscht.
 
 Eine Möglichkeit, so ein gemeinsames Geheimnis zu nutzen wäre zum
 Beispiel es als Key für ein konventionellles symmetrisches
@@ -497,24 +498,24 @@ eigenes Geheimnis s_B, und berechnet P + ... + P, s_B mal. Dann
 
 Nun kennt Alice s_A und P_B, Bob dagegen kennt s_B und P_A.
 
-Alice berechnet nun P_b + ... + P_b (n_a mal) und erhält P_S (ein
+Alice berechnet nun P_B + ... + P_B (s_A mal) und erhält P_S (ein
 Punkt auf der Kurve).
 
-Bob berechnet P_a + ... + P_a (n_b mal) und erhält P_S'
+Bob berechnet P_A + ... + P_A (s_B mal) und erhält P_S'
 
 Aber nun ist
 
-     P_S = P_b + ... + P_b =
-           (P + ...^n_b + P) + ...^n_a + (P + ... +P)
-         = P + ...^ n_a n_b P =
-	 = P + ...^ n_b n_a P =
-	 = P + ...^n_a P + ...^n_b
-	 = P_a + ...^n_b + P_a =
+     P_S = P_B + ... + P_B =
+           (P + ...^s_B + P) + ...^s_A + (P + ... +P)
+         = P + ...^ s_A s_B P =
+	 = P + ...^ s_B s_A P =
+	 = P + ...^s_A P + ...^s_B
+	 = P_a + ...^s_B + P_a =
 	 = P_S'
 
-Damit sind S und S' derselbe Punkt und somit ein gemeinsames
+Damit sind P_S und P_S' derselbe Punkt und somit ein gemeinsames
 Geheimnis. Eve dagegen kennt nur P_a und P_b, bekommt damit aber weder
-n_a noch n_b heraus. (Außer sie hat einen funktionierenden
+s_A noch s_B heraus. (Außer sie hat einen funktionierenden
 Quantencomputer, aber das ist eine andere Geschichte).
 
 Was hatten wir:
@@ -537,7 +538,7 @@ Allgemeines Konzept: Äquivalenzklassen
 Vorstellung des generellen mathematischen Konzeptes neue Objekte zu bilden
 indem schon vorhandene in Äquivalenzklassen aufgeteilt werden:
 
-1) Punkte im 3-dimensionaln Raum ohne Nullpunkt. Alle Punkte die auf derselben
+1) Punkte im 3-dimensionalen Raum ohne Nullpunkt. Alle Punkte die auf derselben
    Geraden durch den Ursprung liegen sind äquivalent zueinander.
 
 2) Ganze Zahlen, und eine Primzahl p gegeben. Alle Zahlen, die denselben Rest
